@@ -18,7 +18,6 @@
       --ink-faint: #aaaaaa;
       --rule: #d8d4ce;
       --green: #2d4a2d;
-      --green-light: #4a7a4a;
     }
 
     html { scroll-behavior: smooth; }
@@ -60,10 +59,7 @@
       font-size: 1rem;
       color: var(--ink);
     }
-    .nav-logo-text {
-      display: flex;
-      flex-direction: column;
-    }
+    .nav-logo-text { display: flex; flex-direction: column; }
     .nav-logo-text span:first-child {
       font-family: 'EB Garamond', serif;
       font-size: 1.1rem;
@@ -107,12 +103,12 @@
       inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center 30%;
+      object-position: center 40%;
     }
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5) 100%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.55) 100%);
     }
     .hero-logo {
       position: absolute;
@@ -143,11 +139,9 @@
       letter-spacing: 0.35em;
       color: rgba(255,255,255,0.75);
     }
-
     .hero-nav {
       position: absolute;
-      bottom: 3.5rem;
-      right: 3.5rem;
+      bottom: 3.5rem; right: 3.5rem;
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
@@ -162,7 +156,6 @@
       transition: color 0.2s;
     }
     .hero-nav a:hover { color: white; }
-
     .scroll-cue {
       position: absolute;
       bottom: 3rem; left: 50%; transform: translateX(-50%);
@@ -180,22 +173,20 @@
       text-transform: uppercase;
     }
     .scroll-cue .scroll-line {
-      width: 1px;
-      height: 48px;
+      width: 1px; height: 48px;
       background: white;
       animation: scrollDrop 2s ease-in-out infinite;
     }
     @keyframes scrollDrop {
-      0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
-      40% { transform: scaleY(1); transform-origin: top; opacity: 1; }
-      60% { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+      40%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      60%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
       100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
     }
 
-    /* ─── Section label (vertical rotated) ─── */
+    /* ─── Section label ─── */
     .section-label {
       writing-mode: vertical-rl;
-      text-orientation: mixed;
       font-family: 'EB Garamond', serif;
       font-size: 0.75rem;
       letter-spacing: 0.25em;
@@ -223,13 +214,12 @@
       border: 1px solid var(--ink);
       border-radius: 50%;
       flex-shrink: 0;
-      transition: background 0.25s, border-color 0.25s;
+      transition: background 0.25s;
     }
-    .explore-more:hover .circle {
-      background: var(--ink);
-    }
+    .explore-more:hover .circle { background: var(--ink); }
+    .rule { width: 40px; height: 1px; background: var(--rule); }
 
-    /* ─── Concept Section ─── */
+    /* ─── Concept ─── */
     .section-concept {
       display: grid;
       grid-template-columns: 60px 1fr;
@@ -237,32 +227,16 @@
     }
     .concept-sidebar {
       background: var(--off-white);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       padding: 4rem 0;
       border-right: 1px solid var(--rule);
     }
-    .concept-body {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-    .concept-image {
-      position: relative;
-      overflow: hidden;
-    }
-    .concept-image img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .concept-body { display: grid; grid-template-columns: 1fr 1fr; }
+    .concept-image { position: relative; overflow: hidden; }
+    .concept-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .concept-text {
       padding: 6rem 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 2rem;
+      display: flex; flex-direction: column; justify-content: center; gap: 2rem;
     }
     .concept-headline {
       font-family: 'EB Garamond', serif;
@@ -270,41 +244,61 @@
       font-weight: 400;
       line-height: 1.35;
       letter-spacing: 0.02em;
-      color: var(--ink);
     }
-    .concept-headline em {
-      font-style: italic;
-      color: var(--green);
-    }
+    .concept-headline em { font-style: italic; color: var(--green); }
     .concept-body-text {
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.875rem;
-      font-weight: 300;
-      line-height: 2.2;
-      color: var(--ink-light);
+      font-size: 0.875rem; font-weight: 300;
+      line-height: 2.2; color: var(--ink-light);
     }
     .concept-body-text-en {
       font-family: 'EB Garamond', serif;
-      font-size: 1rem;
-      line-height: 2;
-      color: var(--ink-light);
-    }
-    .rule {
-      width: 40px;
-      height: 1px;
-      background: var(--rule);
+      font-size: 1rem; line-height: 2; color: var(--ink-light);
     }
 
-    /* ─── Experiences Section ─── */
+    /* ─── Panoramic Break ─── */
+    .section-panorama {
+      position: relative;
+      height: 70vh;
+      overflow: hidden;
+    }
+    .panorama-img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 40%;
+      display: block;
+    }
+    .panorama-overlay {
+      position: absolute; inset: 0;
+      background: rgba(10,20,10,0.52);
+    }
+    .panorama-text {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.25rem; text-align: center;
+    }
+    .panorama-ja {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.4rem, 3vw, 2.25rem);
+      font-weight: 200; letter-spacing: 0.3em;
+      color: white; line-height: 1.8;
+    }
+    .panorama-en {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.65);
+    }
+    .panorama-rule { width: 40px; height: 1px; background: rgba(255,255,255,0.35); }
+
+    /* ─── Experiences ─── */
     .section-experiences {
       background: var(--off-white);
       padding: 7rem 0;
-      position: relative;
     }
     .experiences-header {
-      display: flex;
-      align-items: flex-end;
-      gap: 2rem;
+      display: flex; align-items: flex-end; gap: 2rem;
       padding: 0 5rem 4rem;
       border-bottom: 1px solid var(--rule);
       margin-bottom: 5rem;
@@ -312,77 +306,80 @@
     .experiences-header h2 {
       font-family: 'EB Garamond', serif;
       font-size: clamp(2.5rem, 4vw, 3.5rem);
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      line-height: 1;
-      color: var(--ink);
+      font-weight: 400; letter-spacing: 0.05em; line-height: 1;
     }
     .experiences-header .sub {
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.3em;
-      color: var(--ink-faint);
-      padding-bottom: 0.4rem;
+      font-size: 0.75rem; letter-spacing: 0.3em;
+      color: var(--ink-faint); padding-bottom: 0.4rem;
     }
-
     .exp-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
+      display: grid; grid-template-columns: repeat(4, 1fr);
       border-left: 1px solid var(--rule);
     }
-    .exp-item {
-      border-right: 1px solid var(--rule);
-      cursor: pointer;
-    }
-    .exp-img-wrap {
-      aspect-ratio: 2/3;
-      overflow: hidden;
-    }
+    .exp-item { border-right: 1px solid var(--rule); cursor: pointer; }
+    .exp-img-wrap { aspect-ratio: 2/3; overflow: hidden; }
     .exp-img-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
+      width: 100%; height: 100%; object-fit: cover; display: block;
       transition: transform 0.7s ease, filter 0.7s ease;
-      filter: grayscale(30%);
+      filter: grayscale(25%);
     }
-    .exp-item:hover .exp-img-wrap img {
-      transform: scale(1.04);
-      filter: grayscale(0%);
-    }
+    .exp-item:hover .exp-img-wrap img { transform: scale(1.04); filter: grayscale(0%); }
     .exp-caption {
       padding: 1.5rem 1.75rem 2rem;
       border-top: 1px solid var(--rule);
     }
     .exp-num {
       font-family: 'EB Garamond', serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      color: var(--ink-faint);
-      margin-bottom: 0.5rem;
+      font-size: 0.75rem; letter-spacing: 0.25em;
+      color: var(--ink-faint); margin-bottom: 0.5rem;
     }
     .exp-title-ja {
       font-family: 'Noto Serif JP', serif;
-      font-size: 1.1rem;
-      font-weight: 300;
-      letter-spacing: 0.15em;
-      margin-bottom: 0.2rem;
+      font-size: 1.1rem; font-weight: 300;
+      letter-spacing: 0.15em; margin-bottom: 0.2rem;
     }
     .exp-title-en {
       font-family: 'EB Garamond', serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      color: var(--ink-faint);
-      text-transform: uppercase;
-      margin-bottom: 1rem;
+      font-size: 0.8rem; letter-spacing: 0.2em;
+      color: var(--ink-faint); text-transform: uppercase; margin-bottom: 1rem;
     }
     .exp-desc {
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.75rem;
-      font-weight: 300;
-      line-height: 2;
-      color: var(--ink-light);
+      font-size: 0.75rem; font-weight: 300;
+      line-height: 2; color: var(--ink-light);
     }
+
+    /* ─── Gallery ─── */
+    .section-gallery { padding: 7rem 0 0; background: var(--white); }
+    .gallery-header {
+      display: flex; align-items: flex-end; gap: 2rem;
+      padding: 0 5rem 4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .gallery-header h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 400; letter-spacing: 0.05em; line-height: 1;
+    }
+    .gallery-header .sub {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.75rem; letter-spacing: 0.3em;
+      color: var(--ink-faint); padding-bottom: 0.4rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+    }
+    .gallery-item { overflow: hidden; }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.8s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item.tall  { aspect-ratio: 3/4; }
+    .gallery-item.wide  { aspect-ratio: 4/3; }
 
     /* ─── Garden & Master ─── */
     .section-garden {
@@ -390,221 +387,155 @@
       grid-template-columns: 1fr 60px;
       min-height: 85vh;
     }
-    .garden-body {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
+    .garden-body { display: grid; grid-template-columns: 1fr 1fr; }
     .garden-text {
       padding: 7rem 5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 2rem;
+      display: flex; flex-direction: column; justify-content: center; gap: 2rem;
     }
     .garden-eyebrow {
       font-family: 'EB Garamond', serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--green);
+      font-size: 0.8rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--green);
     }
     .garden-headline {
       font-family: 'EB Garamond', serif;
       font-size: clamp(2rem, 3vw, 2.75rem);
-      font-weight: 400;
-      line-height: 1.3;
-      letter-spacing: 0.02em;
+      font-weight: 400; line-height: 1.3; letter-spacing: 0.02em;
     }
     .garden-headline-ja {
       font-family: 'Noto Serif JP', serif;
-      font-size: 1rem;
-      font-weight: 300;
-      letter-spacing: 0.3em;
-      color: var(--ink-light);
+      font-size: 1rem; font-weight: 300;
+      letter-spacing: 0.3em; color: var(--ink-light);
     }
     .garden-body-text {
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.875rem;
-      font-weight: 300;
-      line-height: 2.2;
-      color: var(--ink-light);
+      font-size: 0.875rem; font-weight: 300;
+      line-height: 2.2; color: var(--ink-light);
     }
     .garden-quote {
       font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: 1.05rem;
-      line-height: 1.7;
+      font-style: italic; font-size: 1.05rem; line-height: 1.7;
       color: var(--ink-light);
-      border-left: 2px solid var(--green);
-      padding-left: 1.25rem;
+      border-left: 2px solid var(--green); padding-left: 1.25rem;
     }
-    .garden-image {
-      position: relative;
-      overflow: hidden;
-    }
-    .garden-image img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .garden-images { display: grid; grid-template-rows: 1fr 1fr; height: 100%; }
+    .garden-images .garden-image { overflow: hidden; }
+    .garden-images .garden-image + .garden-image { border-top: 3px solid var(--white); }
+    .garden-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .garden-sidebar {
       background: var(--off-white);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       padding: 4rem 0;
       border-left: 1px solid var(--rule);
     }
 
     /* ─── CTA Banner ─── */
     .section-cta {
-      position: relative;
-      overflow: hidden;
-      min-height: 60vh;
-      display: flex;
-      align-items: center;
+      position: relative; overflow: hidden;
+      min-height: 60vh; display: flex; align-items: center;
     }
-    .cta-bg {
-      position: absolute;
-      inset: 0;
-    }
+    .cta-bg { position: absolute; inset: 0; }
     .cta-bg img {
       width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center 60%;
+      object-fit: cover; object-position: center 40%;
     }
     .cta-bg::after {
       content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(26,26,26,0.65);
+      position: absolute; inset: 0;
+      background: rgba(10,15,10,0.68);
     }
     .cta-content {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      text-align: center;
-      padding: 5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
+      position: relative; z-index: 1;
+      width: 100%; text-align: center; padding: 5rem 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 2rem;
     }
     .cta-eyebrow {
       font-family: 'EB Garamond', serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
+      font-size: 0.8rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
     }
     .cta-headline {
       font-family: 'Noto Serif JP', serif;
       font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-      font-weight: 200;
-      letter-spacing: 0.15em;
-      color: white;
-      line-height: 1.6;
+      font-weight: 200; letter-spacing: 0.15em;
+      color: white; line-height: 1.6;
     }
     .cta-sub {
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.8rem;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.65);
-      line-height: 2;
+      font-size: 0.8rem; font-weight: 300;
+      letter-spacing: 0.2em; color: rgba(255,255,255,0.6); line-height: 2;
     }
     .cta-btn {
       display: inline-block;
       padding: 1rem 3rem;
       border: 1px solid rgba(255,255,255,0.7);
       font-family: 'EB Garamond', serif;
-      font-size: 0.875rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: white;
+      font-size: 0.875rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: white;
       text-decoration: none;
       transition: background 0.3s, border-color 0.3s;
-      cursor: pointer;
-      background: none;
+      cursor: pointer; background: none;
     }
-    .cta-btn:hover {
-      background: rgba(255,255,255,0.15);
-      border-color: white;
-    }
+    .cta-btn:hover { background: rgba(255,255,255,0.12); border-color: white; }
 
     /* ─── Footer ─── */
     footer {
       background: var(--off-white);
       border-top: 1px solid var(--rule);
-      padding: 5rem 5rem 3rem;
     }
+    .footer-imgstrip {
+      width: 100%; height: 220px; overflow: hidden; position: relative;
+    }
+    .footer-imgstrip img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 50%;
+      display: block; filter: grayscale(15%);
+    }
+    .footer-imgstrip::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, var(--off-white) 100%);
+    }
+    .footer-inner { padding: 4rem 5rem 3rem; }
     .footer-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 4rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid var(--rule);
-      margin-bottom: 2rem;
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 4rem; padding-bottom: 3rem;
+      border-bottom: 1px solid var(--rule); margin-bottom: 2rem;
     }
     .footer-brand-name {
       font-family: 'EB Garamond', serif;
-      font-size: 1.5rem;
-      letter-spacing: 0.2em;
-      color: var(--ink);
-      margin-bottom: 0.25rem;
+      font-size: 1.5rem; letter-spacing: 0.2em; color: var(--ink); margin-bottom: 0.25rem;
     }
     .footer-brand-sub {
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.35em;
-      color: var(--ink-faint);
-      margin-bottom: 1.5rem;
+      font-size: 0.65rem; letter-spacing: 0.35em;
+      color: var(--ink-faint); margin-bottom: 1.5rem;
     }
     .footer-desc {
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.8rem;
-      font-weight: 300;
-      line-height: 2;
-      color: var(--ink-light);
+      font-size: 0.8rem; font-weight: 300; line-height: 2; color: var(--ink-light);
     }
     .footer-col h4 {
       font-family: 'EB Garamond', serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 1.5rem;
+      font-size: 0.8rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem;
     }
     .footer-col address {
       font-style: normal;
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.8rem;
-      font-weight: 300;
-      line-height: 2.2;
-      color: var(--ink-light);
+      font-size: 0.8rem; font-weight: 300; line-height: 2.2; color: var(--ink-light);
     }
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
     .footer-links a {
       font-family: 'EB Garamond', serif;
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      color: var(--ink-light);
-      text-decoration: none;
-      transition: color 0.2s;
+      font-size: 0.9rem; letter-spacing: 0.1em;
+      color: var(--ink-light); text-decoration: none; transition: color 0.2s;
     }
     .footer-links a:hover { color: var(--green); }
     .footer-copy {
       font-family: 'EB Garamond', serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      color: var(--ink-faint);
-      text-align: center;
+      font-size: 0.75rem; letter-spacing: 0.15em;
+      color: var(--ink-faint); text-align: center;
     }
 
     /* ─── Responsive ─── */
@@ -615,23 +546,26 @@
       .hero-nav { display: none; }
       .section-concept { grid-template-columns: 40px 1fr; }
       .concept-body { grid-template-columns: 1fr; }
-      .concept-image { aspect-ratio: 4/3; height: 300px; }
+      .concept-image { aspect-ratio: 4/3; }
       .concept-text { padding: 3rem 2rem; }
+      .section-panorama { height: 50vw; min-height: 260px; }
       .exp-grid { grid-template-columns: repeat(2, 1fr); }
       .experiences-header { padding: 0 2rem 3rem; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-header { padding: 0 2rem 3rem; }
       .section-garden { grid-template-columns: 1fr; }
       .garden-sidebar { display: none; }
       .garden-body { grid-template-columns: 1fr; }
-      .garden-image { height: 50vw; }
+      .garden-images { height: 100vw; }
       .garden-text { padding: 3rem 2rem; }
-      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-imgstrip { height: 140px; }
+      .footer-inner { padding: 3rem 1.5rem 2rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation (sticky, appears after hero) -->
   <nav id="main-nav">
     <a href="#" class="nav-logo">
       <div class="nav-logo-mark">華</div>
@@ -643,34 +577,30 @@
     <ul class="nav-links">
       <li><a href="#concept">Concept</a></li>
       <li><a href="#experiences">Experiences</a></li>
+      <li><a href="#gallery">Photos</a></li>
       <li><a href="#garden">Garden &amp; Master</a></li>
       <li><a href="#visit">Visit</a></li>
-      <li><a href="#visit">Contact</a></li>
     </ul>
   </nav>
 
   <!-- Hero -->
   <section class="hero">
-    <img
-      class="hero-img"
-      src="https://images.unsplash.com/photo-1595435742656-5272d0b3fa82?auto=format&fit=crop&q=80&w=2000"
+    <img class="hero-img"
+      src="https://images.unsplash.com/photo-1526397751294-331021109fbd?auto=format&fit=crop&q=85&w=2000"
       alt="春花園 盆栽庭園"
     />
     <div class="hero-overlay"></div>
-
     <div class="hero-logo">
       <div class="hero-logo-mark">華</div>
       <div class="hero-logo-name">Shunkaen</div>
       <div class="hero-logo-sub">春花園 BONSAI 美術館</div>
     </div>
-
     <nav class="hero-nav">
       <a href="#concept">Concept</a>
       <a href="#experiences">Experiences</a>
       <a href="#garden">Garden &amp; Master</a>
       <a href="#visit">Visit</a>
     </nav>
-
     <div class="scroll-cue">
       <span>Scroll</span>
       <div class="scroll-line"></div>
@@ -685,8 +615,8 @@
     <div class="concept-body">
       <div class="concept-image">
         <img
-          src="https://images.unsplash.com/photo-1599598425947-3300262b7ae1?auto=format&fit=crop&q=80&w=900"
-          alt="盆栽"
+          src="https://images.unsplash.com/photo-1677129667817-73a6613865c3?auto=format&fit=crop&q=85&w=900"
+          alt="盆栽 根"
         />
       </div>
       <div class="concept-text">
@@ -714,84 +644,99 @@
     </div>
   </section>
 
+  <!-- Panoramic Break -->
+  <section class="section-panorama">
+    <img class="panorama-img"
+      src="https://images.unsplash.com/photo-1757829316604-cdb3c7980774?auto=format&fit=crop&q=85&w=2000"
+      alt="日本庭園"
+    />
+    <div class="panorama-overlay"></div>
+    <div class="panorama-text">
+      <div class="panorama-rule"></div>
+      <p class="panorama-ja">四季折々の表情を見せる、千の命。</p>
+      <p class="panorama-en">One thousand trees. One thousand stories.</p>
+      <div class="panorama-rule"></div>
+    </div>
+  </section>
+
   <!-- Experiences -->
   <section class="section-experiences" id="experiences">
     <div class="experiences-header">
       <h2>Experiences</h2>
       <span class="sub">庭園で味わう、極上のひととき</span>
     </div>
-
     <div class="exp-grid">
-      <!-- Bonsai -->
       <div class="exp-item">
         <div class="exp-img-wrap">
-          <img
-            src="https://images.unsplash.com/photo-1613143525283-6f1ce9b6fa72?auto=format&fit=crop&q=80&w=600"
-            alt="盆栽体験"
-          />
+          <img src="https://images.unsplash.com/photo-1676182123614-3e1f67fd38f5?auto=format&fit=crop&q=85&w=600" alt="盆栽体験" />
         </div>
         <div class="exp-caption">
           <div class="exp-num">01</div>
           <div class="exp-title-ja">盆栽体験</div>
           <div class="exp-title-en">Bonsai</div>
-          <p class="exp-desc">
-            木を選び、土に触れ、剪定する。職人の指導のもと、一連のプロセスを丁寧に体験します。初心者・手ぶら参加歓迎。
-          </p>
+          <p class="exp-desc">木を選び、土に触れ、剪定する。職人の指導のもと、一連のプロセスを丁寧に体験します。初心者・手ぶら参加歓迎。</p>
         </div>
       </div>
-
-      <!-- Tea -->
       <div class="exp-item">
         <div class="exp-img-wrap">
-          <img
-            src="https://images.unsplash.com/photo-1545041042-45e0d49b292e?auto=format&fit=crop&q=80&w=600"
-            alt="茶道"
-          />
+          <img src="https://images.unsplash.com/photo-1755184108959-47223012b460?auto=format&fit=crop&q=85&w=600" alt="茶道" />
         </div>
         <div class="exp-caption">
           <div class="exp-num">02</div>
           <div class="exp-title-ja">茶道</div>
           <div class="exp-title-en">Tea Ceremony</div>
-          <p class="exp-desc">
-            静寂な茶室で、抹茶と季節の和菓子を味わう。盆栽を鑑賞した後の至福のひととき。
-          </p>
+          <p class="exp-desc">静寂な茶室で、抹茶と季節の和菓子を味わう。盆栽を鑑賞した後の至福のひととき。</p>
         </div>
       </div>
-
-      <!-- Kimono -->
       <div class="exp-item">
         <div class="exp-img-wrap">
-          <img
-            src="https://images.unsplash.com/photo-1578330725556-324391e6b36a?auto=format&fit=crop&q=80&w=600"
-            alt="着物"
-          />
+          <img src="https://images.unsplash.com/photo-1598497646869-fc60c816ec31?auto=format&fit=crop&q=85&w=600" alt="着物" />
         </div>
         <div class="exp-caption">
           <div class="exp-num">03</div>
           <div class="exp-title-ja">着物</div>
           <div class="exp-title-en">Kimono</div>
-          <p class="exp-desc">
-            伝統的な着物に身を包み、緑豊かな庭園を散策。最高の記念撮影の舞台をご用意します。
-          </p>
+          <p class="exp-desc">伝統的な着物に身を包み、緑豊かな庭園を散策。最高の記念撮影の舞台をご用意します。</p>
         </div>
       </div>
-
-      <!-- Calligraphy -->
       <div class="exp-item">
         <div class="exp-img-wrap">
-          <img
-            src="https://images.unsplash.com/photo-1580211516089-a31eb282e7bb?auto=format&fit=crop&q=80&w=600"
-            alt="書道"
-          />
+          <img src="https://images.unsplash.com/photo-1582793988951-9aed5509eb97?auto=format&fit=crop&q=85&w=600" alt="書道" />
         </div>
         <div class="exp-caption">
           <div class="exp-num">04</div>
           <div class="exp-title-ja">書道</div>
           <div class="exp-title-en">Calligraphy</div>
-          <p class="exp-desc">
-            墨の香りに包まれながら、心を静めて筆を走らせる。精神統一の体験。
-          </p>
+          <p class="exp-desc">墨の香りに包まれながら、心を静めて筆を走らせる。精神統一の体験。</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section-gallery" id="gallery">
+    <div class="gallery-header">
+      <h2>Photos</h2>
+      <span class="sub">庭園のすがた</span>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item tall">
+        <img src="https://images.unsplash.com/photo-1634302091571-c787117e71f5?auto=format&fit=crop&q=85&w=700" alt="松の盆栽" />
+      </div>
+      <div class="gallery-item tall">
+        <img src="https://images.unsplash.com/photo-1536727510301-a2e7a31bb6cf?auto=format&fit=crop&q=85&w=700" alt="盆栽" />
+      </div>
+      <div class="gallery-item tall">
+        <img src="https://images.unsplash.com/photo-1598497646869-fc60c816ec31?auto=format&fit=crop&q=85&w=700" alt="着物 竹林" />
+      </div>
+      <div class="gallery-item wide">
+        <img src="https://images.unsplash.com/photo-1762018882532-105fec593c76?auto=format&fit=crop&q=85&w=900" alt="日本庭園" />
+      </div>
+      <div class="gallery-item wide">
+        <img src="https://images.unsplash.com/photo-1683936348960-7b881c247da6?auto=format&fit=crop&q=85&w=900" alt="盆栽" />
+      </div>
+      <div class="gallery-item wide">
+        <img src="https://images.unsplash.com/photo-1741851374411-9528e6d2f33f?auto=format&fit=crop&q=85&w=900" alt="日本の夜景" />
       </div>
     </div>
   </section>
@@ -822,11 +767,13 @@
           Read the full story
         </a>
       </div>
-      <div class="garden-image">
-        <img
-          src="https://images.unsplash.com/photo-1555505019-8c3f1c4aba5f?auto=format&fit=crop&q=80&w=900"
-          alt="小林國雄"
-        />
+      <div class="garden-images">
+        <div class="garden-image">
+          <img src="https://images.unsplash.com/photo-1526397751294-331021109fbd?auto=format&fit=crop&q=85&w=900&crop=top" alt="盆栽" />
+        </div>
+        <div class="garden-image">
+          <img src="https://images.unsplash.com/photo-1677129667817-73a6613865c3?auto=format&fit=crop&q=85&w=900" alt="盆栽の根" />
+        </div>
       </div>
     </div>
     <div class="garden-sidebar">
@@ -834,13 +781,10 @@
     </div>
   </section>
 
-  <!-- CTA Banner -->
+  <!-- CTA -->
   <section class="section-cta">
     <div class="cta-bg">
-      <img
-        src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&q=80&w=2000"
-        alt="盆栽庭園"
-      />
+      <img src="https://images.unsplash.com/photo-1741851374411-9528e6d2f33f?auto=format&fit=crop&q=85&w=2000" alt="夜の日本" />
     </div>
     <div class="cta-content">
       <p class="cta-eyebrow">Plan your visit</p>
@@ -853,41 +797,44 @@
     </div>
   </section>
 
-  <!-- Footer / Visit -->
+  <!-- Footer -->
   <footer id="visit">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand-name">Shunkaen</div>
-        <div class="footer-brand-sub">春花園 BONSAI 美術館</div>
-        <p class="footer-desc">
-          A living garden where you can experience<br>
-          the true essence of Japanese traditional culture.<br>
-          日本の伝統文化と命の尊厳を体感する庭。
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Visit Us</h4>
-        <address>
-          〒132-0001<br>
-          東京都江戸川区新堀1-29-16<br><br>
-          Open: 10:00 – 17:00<br>
-          Closed: Monday<br>
-          (Except National Holidays)
-        </address>
-      </div>
-
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <ul class="footer-links">
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Book an Experience</a></li>
-        </ul>
-      </div>
+    <div class="footer-imgstrip">
+      <img src="https://images.unsplash.com/photo-1757829316604-cdb3c7980774?auto=format&fit=crop&q=85&w=2000" alt="日本庭園" />
     </div>
-    <p class="footer-copy">&copy; 2026 Shunkaen Bonsai Museum. All rights reserved.</p>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Shunkaen</div>
+          <div class="footer-brand-sub">春花園 BONSAI 美術館</div>
+          <p class="footer-desc">
+            A living garden where you can experience<br>
+            the true essence of Japanese traditional culture.<br>
+            日本の伝統文化と命の尊厳を体感する庭。
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Visit Us</h4>
+          <address>
+            〒132-0001<br>
+            東京都江戸川区新堀1-29-16<br><br>
+            Open: 10:00 – 17:00<br>
+            Closed: Monday<br>
+            (Except National Holidays)
+          </address>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul class="footer-links">
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Book an Experience</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-copy">&copy; 2026 Shunkaen Bonsai Museum. All rights reserved.</p>
+    </div>
   </footer>
 
   <script>
