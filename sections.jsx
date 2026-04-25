@@ -52,16 +52,14 @@ function SectionHead({ data, dataKey, lang }) {
   return (
     <header className="section-head">
       <div>
-        <Reveal className="section-num">{d.num}</Reveal>
-        <Reveal delay={1}><div className="section-kicker">{d.kicker}</div></Reveal>
-        <Reveal delay={2}>
+        <Reveal><div className="section-kicker">{d.kicker}</div></Reveal>
+        <Reveal delay={1}>
           <h2 className="section-title">
             {d.title.split("\n").map((l, i) => <span key={i} style={{display:"block"}}>{l}</span>)}
-            {d.titleJp && <span className="en">— {d.titleJp}</span>}
           </h2>
         </Reveal>
       </div>
-      {d.lead && <Reveal delay={3}><p className="section-lead">{d.lead}</p></Reveal>}
+      {d.lead && <Reveal delay={2}><p className="section-lead">{d.lead}</p></Reveal>}
     </header>
   );
 }
@@ -159,22 +157,6 @@ function HeroMeta({ c }) {
   );
 }
 
-// ============================================================
-// MARQUEE
-// ============================================================
-function Marquee() {
-  const words = ["盆栽", "Bonsai", "茶道", "Sadō", "書道", "Shodō", "着物", "Kimono", "四季", "Shiki", "春花園", "Shunkaen"];
-  const tokens = [...words, ...words];
-  return (
-    <div className="marquee" aria-hidden="true">
-      <div className="marquee-track">
-        {tokens.map((t, i) => (
-          /[A-Za-z]/.test(t) ? <span key={i} className="en">{t}</span> : <span key={i}>{t}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 // ============================================================
 // COLLECTION

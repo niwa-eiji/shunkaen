@@ -122,8 +122,6 @@ function App() {
       {/* HERO */}
       <Hero c={c} onBook={scrollToBook} heroVariant={tweaks.hero} />
 
-      <Marquee />
-
       {/* SECTIONS */}
       <Collection c={c} lang={lang} />
       <Experiences c={c} lang={lang} onBook={scrollToBook} />

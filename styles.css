@@ -19,11 +19,11 @@
   --vermillion: #9E3A2E;
   --accent: var(--moss);
 
-  /* type */
-  --serif-display: "Cormorant Garamond", "Shippori Mincho", "Noto Serif JP", serif;
-  --serif-jp: "Shippori Mincho", "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  /* type — 2書体に統一 */
+  --serif-display: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --serif-jp: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --sans-jp: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --mono: ui-monospace, monospace;
 
   /* spacing rhythm (8pt) */
   --s-1: 4px;
@@ -677,38 +677,6 @@ section.block {
   border-color: rgba(255,255,255,0.25);
 }
 
-/* ================================================================
-   MARQUEE (kanji ribbon)
-   ================================================================ */
-.marquee {
-  padding: 40px 0;
-  overflow: hidden;
-  border-top: 1px solid var(--line-faint);
-  border-bottom: 1px solid var(--line-faint);
-  background: var(--paper);
-}
-.marquee-track {
-  display: flex;
-  gap: 80px;
-  white-space: nowrap;
-  animation: marquee 60s linear infinite;
-  font-family: var(--serif-jp);
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 300;
-  letter-spacing: 0.15em;
-  color: var(--ink-faint);
-}
-.marquee-track span.en {
-  font-family: var(--serif-display);
-  font-style: italic;
-  color: var(--moss);
-  font-size: 0.85em;
-  align-self: center;
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
 
 /* ================================================================
    COLLECTION — 1000-year bonsai
@@ -1645,7 +1613,7 @@ section.block {
 body[data-anim="0"] .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 body[data-anim="0"] .ink-reveal::after { display: none; }
 body[data-anim="0"] .leaves { display: none; }
-body[data-anim="0"] .marquee-track { animation: none !important; }
+
 body[data-anim="low"] .leaves { display: none; }
 
 /* whitespace modifier */
@@ -1667,7 +1635,7 @@ body[data-type="sans"] .brand .kanji {
 body[data-type="modern"] .section-title,
 body[data-type="modern"] .hero h1,
 body[data-type="modern"] .footer-huge {
-  font-family: "DM Serif Display", var(--serif-jp);
+  font-family: var(--serif-jp);
 }
 
 /* palette modifiers */
