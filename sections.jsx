@@ -1,8 +1,13 @@
 /* Shunkaen — section components */
 const { useState, useEffect, useRef } = React;
 
-// Placeholder block — labeled box for where a real photo should drop in
-function Photo({ label, className = "", dark = false, style }) {
+function Photo({ label, src, className = "", dark = false, style }) {
+  if (src) {
+    return (
+      <img src={src} alt={label} className={className}
+        style={{ objectFit: "cover", width: "100%", height: "100%", display: "block", ...style }} />
+    );
+  }
   return (
     <div className={`placeholder ${dark ? "dark" : ""} ${className}`} style={style}>
       <span className="ph-label">{label}</span>
@@ -83,8 +88,7 @@ function Hero({ c, onBook, heroVariant }) {
   if (heroVariant === "centered") {
     return (
       <section className="hero" style={{ alignItems: "center", textAlign: "center" }} data-screen-label="Hero">
-        <div className="hero-bg" ref={bgRef} />
-        <div className="hero-photo-slot"><span className="label">[ hero photograph — bonsai + garden ]</span></div>
+        <div className="hero-bg" ref={bgRef} style={{ backgroundImage: "url('images/images_main_img1.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
         <div className="hero-inner" style={{ margin: "0 auto" }}>
           <div className="hero-eyebrow" style={{ justifyContent: "center" }}>{c.hero.eyebrow}</div>
           <h1>
@@ -115,8 +119,7 @@ function Hero({ c, onBook, heroVariant }) {
           </div>
         </div>
         <div style={{ flex: "1 1 50%", position: "relative", background: "#2a2e24", overflow: "hidden" }}>
-          <div className="hero-bg" ref={bgRef} style={{ left: 0 }} />
-          <div className="hero-photo-slot"><span className="label">[ bonsai hero photo ]</span></div>
+          <div className="hero-bg" ref={bgRef} style={{ left: 0, backgroundImage: "url('images/images_main_img1.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
         </div>
       </section>
     );
@@ -125,8 +128,7 @@ function Hero({ c, onBook, heroVariant }) {
   // default — fullbleed overlay
   return (
     <section className="hero" data-screen-label="Hero">
-      <div className="hero-bg" ref={bgRef} />
-      <div className="hero-photo-slot"><span className="label">[ hero photograph — bonsai + garden ]</span></div>
+      <div className="hero-bg" ref={bgRef} style={{ backgroundImage: "url('images/images_main_img1.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
       <div className="hero-inner">
         <div className="hero-eyebrow">{c.hero.eyebrow}</div>
         <h1>
@@ -183,12 +185,12 @@ function Collection({ c, lang }) {
       <SectionHead data={c} dataKey="collection" lang={lang} />
       <div className="collection-grid">
         <InkReveal className="collection-hero">
-          <Photo label="1000-yr Juniperus — flagship" style={{ width: "100%", height: "100%" }} />
+          <Photo label="1000-yr Juniperus — flagship" src="images/images_main_img2.jpg" style={{ width: "100%", height: "100%" }} />
         </InkReveal>
         <div className="collection-sub">
-          <InkReveal className="tile"><Photo label="Pine · 400y" style={{ width: "100%", height: "100%" }} /></InkReveal>
-          <InkReveal className="tile"><Photo label="Maple · autumn" style={{ width: "100%", height: "100%" }} /></InkReveal>
-          <InkReveal className="tile wide"><Photo label="Display alcove — tokonoma" style={{ width: "100%", height: "100%" }} /></InkReveal>
+          <InkReveal className="tile"><Photo label="Pine · 400y" src="images/images_t11.jpg" style={{ width: "100%", height: "100%" }} /></InkReveal>
+          <InkReveal className="tile"><Photo label="Maple · autumn" src="images/images_t12.jpg" style={{ width: "100%", height: "100%" }} /></InkReveal>
+          <InkReveal className="tile wide"><Photo label="Display alcove — tokonoma" src="images/images_main_img3.jpg" style={{ width: "100%", height: "100%" }} /></InkReveal>
         </div>
       </div>
       <div className="stats-row">
@@ -267,7 +269,7 @@ function Experiences({ c, lang, onBook }) {
                 <span style={{ position: "absolute", right: 0, top: -3, width: 7, height: 7, borderTop: "1px solid currentColor", borderRight: "1px solid currentColor", transform: "rotate(45deg)" }} />
               </span></span>
               <div className="exp-image">
-                <Photo label={`${row.title}`} style={{ width: "100%", height: "100%" }} />
+                <Photo label={row.title} src={["images/images_t1.jpg","images/images_t2.jpg","images/images_t3.jpg","images/images_t4.jpg"][i]} style={{ width: "100%", height: "100%" }} />
               </div>
             </div>
           </Reveal>
@@ -286,7 +288,7 @@ function Master({ c, lang }) {
       <SectionHead data={c} dataKey="master" lang={lang} />
       <div className="about-grid">
         <InkReveal className="about-portrait">
-          <Photo label="Kobayashi Kunio · portrait" dark style={{ width: "100%", height: "100%" }} />
+          <Photo label="Kobayashi Kunio · portrait" src="images/images_main_img4.jpg" style={{ width: "100%", height: "100%" }} />
         </InkReveal>
         <Reveal className="about-body">
           <p className="quote">{c.master.quote}</p>
@@ -346,14 +348,14 @@ function Visit({ c, lang }) {
 // ============================================================
 function Gallery({ c, lang }) {
   const tiles = [
-    { label: "Spring · plum bloom", cls: "feat" },
-    { label: "Summer · moss", cls: "small tall" },
-    { label: "Autumn · maple", cls: "" },
-    { label: "Winter · snow", cls: "" },
-    { label: "Tea room", cls: "" },
-    { label: "Tokonoma display", cls: "wide" },
-    { label: "Workshop in session", cls: "" },
-    { label: "Master at work", cls: "" },
+    { label: "Spring · plum bloom", cls: "feat",       src: "images/images_main_img1.jpg" },
+    { label: "Summer · moss",       cls: "small tall", src: "images/images_t13.jpg" },
+    { label: "Autumn · maple",      cls: "",           src: "images/images_t14.jpg" },
+    { label: "Winter · snow",       cls: "",           src: "images/images_t15.jpg" },
+    { label: "Tea room",            cls: "",           src: "images/images_t2.jpg" },
+    { label: "Tokonoma display",    cls: "wide",       src: "images/images_main_img3.jpg" },
+    { label: "Workshop in session", cls: "",           src: "images/images_t5.jpg" },
+    { label: "Master at work",      cls: "",           src: "images/images_main_img4.jpg" },
   ];
   return (
     <section className="block" id="gallery" data-screen-label="Gallery" style={{ background: "var(--paper-2)" }}>
@@ -361,7 +363,7 @@ function Gallery({ c, lang }) {
       <div className="gallery">
         {tiles.map((t, i) => (
           <InkReveal key={i} className={`g-cell ${t.cls}`}>
-            <Photo label={t.label} style={{ width: "100%", height: "100%" }} />
+            <Photo label={t.label} src={t.src} style={{ width: "100%", height: "100%" }} />
           </InkReveal>
         ))}
       </div>
