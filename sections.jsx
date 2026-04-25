@@ -88,7 +88,7 @@ function Hero({ c, onBook, heroVariant }) {
   if (heroVariant === "centered") {
     return (
       <section className="hero" style={{ alignItems: "center", textAlign: "center" }} data-screen-label="Hero">
-        <div className="hero-bg" ref={bgRef} style={{ backgroundImage: "url('images/images_main_img1.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
+        <div className="hero-bg" ref={bgRef} style={{ backgroundImage: "url('images/ig/622047117_18052708460448070_546930324031864727_n.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
         <div className="hero-inner" style={{ margin: "0 auto" }}>
           <div className="hero-eyebrow" style={{ justifyContent: "center" }}>{c.hero.eyebrow}</div>
           <h1>
@@ -119,7 +119,7 @@ function Hero({ c, onBook, heroVariant }) {
           </div>
         </div>
         <div style={{ flex: "1 1 50%", position: "relative", background: "#2a2e24", overflow: "hidden" }}>
-          <div className="hero-bg" ref={bgRef} style={{ left: 0, backgroundImage: "url('images/images_main_img1.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
+          <div className="hero-bg" ref={bgRef} style={{ left: 0, backgroundImage: "url('images/ig/622047117_18052708460448070_546930324031864727_n.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
         </div>
       </section>
     );
@@ -128,7 +128,7 @@ function Hero({ c, onBook, heroVariant }) {
   // default — fullbleed overlay
   return (
     <section className="hero" data-screen-label="Hero">
-      <div className="hero-bg" ref={bgRef} style={{ backgroundImage: "url('images/images_main_img1.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
+      <div className="hero-bg" ref={bgRef} style={{ backgroundImage: "url('images/ig/622047117_18052708460448070_546930324031864727_n.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
       <div className="hero-inner">
         <div className="hero-eyebrow">{c.hero.eyebrow}</div>
         <h1>
@@ -185,12 +185,12 @@ function Collection({ c, lang }) {
       <SectionHead data={c} dataKey="collection" lang={lang} />
       <div className="collection-grid">
         <InkReveal className="collection-hero">
-          <Photo label="1000-yr Juniperus — flagship" src="images/images_main_img2.jpg" style={{ width: "100%", height: "100%" }} />
+          <Photo label="1000-yr Juniperus — flagship" src="images/ig/658903488_18520221808075121_1961976977321210351_n.jpg" style={{ width: "100%", height: "100%" }} />
         </InkReveal>
         <div className="collection-sub">
-          <InkReveal className="tile"><Photo label="Pine · 400y" src="images/images_t11.jpg" style={{ width: "100%", height: "100%" }} /></InkReveal>
-          <InkReveal className="tile"><Photo label="Maple · autumn" src="images/images_t12.jpg" style={{ width: "100%", height: "100%" }} /></InkReveal>
-          <InkReveal className="tile wide"><Photo label="Display alcove — tokonoma" src="images/images_main_img3.jpg" style={{ width: "100%", height: "100%" }} /></InkReveal>
+          <InkReveal className="tile"><Photo label="Pine · 400y" src="images/ig/654017249_18108897121773324_7873207007404928352_n.jpg" style={{ width: "100%", height: "100%" }} /></InkReveal>
+          <InkReveal className="tile"><Photo label="Azalea in bloom" src="images/ig/651611733_18081668141034989_1734327019013847065_n.jpg" style={{ width: "100%", height: "100%" }} /></InkReveal>
+          <InkReveal className="tile wide"><Photo label="Display alcove — tokonoma" src="images/ig/649212500_18096489650315493_1207309345604313147_n.jpg" style={{ width: "100%", height: "100%" }} /></InkReveal>
         </div>
       </div>
       <div className="stats-row">
@@ -288,7 +288,7 @@ function Master({ c, lang }) {
       <SectionHead data={c} dataKey="master" lang={lang} />
       <div className="about-grid">
         <InkReveal className="about-portrait">
-          <Photo label="Kobayashi Kunio · portrait" src="images/images_main_img4.jpg" style={{ width: "100%", height: "100%" }} />
+          <Photo label="Kobayashi Kunio · portrait" src="images/ig/621568848_18116328709606171_2324010081377099115_n.jpg" style={{ width: "100%", height: "100%" }} />
         </InkReveal>
         <Reveal className="about-body">
           <p className="quote">{c.master.quote}</p>
@@ -348,14 +348,14 @@ function Visit({ c, lang }) {
 // ============================================================
 function Gallery({ c, lang }) {
   const tiles = [
-    { label: "Spring · plum bloom", cls: "feat",       src: "images/images_main_img1.jpg" },
-    { label: "Summer · moss",       cls: "small tall", src: "images/images_t13.jpg" },
-    { label: "Autumn · maple",      cls: "",           src: "images/images_t14.jpg" },
-    { label: "Winter · snow",       cls: "",           src: "images/images_t15.jpg" },
-    { label: "Tea room",            cls: "",           src: "images/images_t2.jpg" },
-    { label: "Tokonoma display",    cls: "wide",       src: "images/images_main_img3.jpg" },
-    { label: "Workshop in session", cls: "",           src: "images/images_t5.jpg" },
-    { label: "Master at work",      cls: "",           src: "images/images_main_img4.jpg" },
+    { label: "Spring · azalea in bloom", cls: "feat",       src: "images/ig/501564605_1186490680154877_2899874138990604350_n.jpg" },
+    { label: "Spring · cherry blossom",  cls: "small tall", src: "images/ig/648988386_18075923141408329_7489955223879941930_n.jpg" },
+    { label: "Autumn · red plum",        cls: "",           src: "images/ig/655029492_18146238745463965_8791533735005858191_n.jpg" },
+    { label: "Winter · tokonoma",        cls: "",           src: "images/ig/649212500_18096489650315493_1207309345604313147_n.jpg" },
+    { label: "Garden from inside",       cls: "",           src: "images/ig/652042781_18099147499754840_5931991711157850490_n.jpg" },
+    { label: "Garden overview",          cls: "wide",       src: "images/ig/626717582_18392213047199632_5235111951086248765_n.jpg" },
+    { label: "Master at work",           cls: "",           src: "images/ig/651999209_18115718473572597_1391146569899234948_n.jpg" },
+    { label: "Master explaining",        cls: "",           src: "images/ig/621568848_18116328709606171_2324010081377099115_n.jpg" },
   ];
   return (
     <section className="block" id="gallery" data-screen-label="Gallery" style={{ background: "var(--paper-2)" }}>
