@@ -179,7 +179,7 @@ function Collection({ c, lang }) {
         {c.collection.stats.map((s, i) => (
           <Reveal key={i} className="stat" delay={i + 1}>
             <span className="cap">{s.cap}</span>
-            <span className="big"><CountUp value={s.big} /> <span className="unit">{s.unit}</span></span>
+            <span className="big">{s.big} <span className="unit">{s.unit}</span></span>
             <span className="desc">{s.desc}</span>
           </Reveal>
         ))}
@@ -188,70 +188,28 @@ function Collection({ c, lang }) {
   );
 }
 
-function CountUp({ value }) {
-  // animate numeric prefix only
-  const match = String(value).match(/^(\D*)(\d[\d,\.]*)(.*)$/);
-  const ref = useRef(null);
-  const [shown, setShown] = useState(value);
-
-  useEffect(() => {
-    if (!match) return;
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          const target = parseFloat(match[2].replace(/,/g, ""));
-          if (Number.isFinite(target)) {
-            const duration = 1400;
-            const start = performance.now();
-            const step = (now) => {
-              const t = Math.min(1, (now - start) / duration);
-              const eased = 1 - Math.pow(1 - t, 3);
-              const v = Math.floor(target * eased);
-              setShown(`${match[1]}${v.toLocaleString()}${match[3]}`);
-              if (t < 1) requestAnimationFrame(step);
-              else setShown(value);
-            };
-            requestAnimationFrame(step);
-          }
-          io.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [value]);
-
-  return <span ref={ref}>{shown}</span>;
-}
 
 // ============================================================
 // EXPERIENCES
 // ============================================================
 function Experiences({ c, lang, onBook }) {
+  const photos = [
+    "images/ig/658903488_18520221808075121_1961976977321210351_n.jpg",
+    "images/ig/649212500_18096489650315493_1207309345604313147_n.jpg",
+    "images/ig/655029492_18146238745463965_8791533735005858191_n.jpg",
+    "images/ig/501564605_1186490680154877_2899874138990604350_n.jpg",
+  ];
   return (
-    <section className="block" id="experiences" data-screen-label="Experiences" style={{ background: "var(--paper)" }}>
+    <section className="block" id="experiences" data-screen-label="Experiences">
       <SectionHead data={c} dataKey="experiences" lang={lang} />
-      <div className="exp-list">
+      <div className="exp-photo-grid">
         {c.experiences.rows.map((row, i) => (
-          <Reveal key={i} className="exp-row" delay={1}>
-            <div onClick={onBook} style={{ display: "contents" }}>
-              <span className="exp-num">{row.no}</span>
-              <h3 className="exp-title">
-                {row.title}
-                <span className="en">{row.titleJp}</span>
-              </h3>
-              <p className="exp-desc">{row.desc}</p>
-              <div className="exp-price">
-                {row.price}
-                <span className="meta">{row.meta}</span>
-              </div>
-              <span className="exp-cta">{c.booking.kicker} <span className="arrow" style={{ width: 16, height: 1, background: "currentColor", position: "relative" }}>
-                <span style={{ position: "absolute", right: 0, top: -3, width: 7, height: 7, borderTop: "1px solid currentColor", borderRight: "1px solid currentColor", transform: "rotate(45deg)" }} />
-              </span></span>
-              <div className="exp-image">
-                <Photo label={row.title} src={["images/images_t1.jpg","images/images_t2.jpg","images/images_t3.jpg","images/images_t4.jpg"][i]} style={{ width: "100%", height: "100%" }} />
+          <Reveal key={i} className="exp-photo-item">
+            <div className="exp-photo-wrap" onClick={onBook}>
+              <Photo label={row.title} src={photos[i]} />
+              <div className="exp-photo-caption">
+                <div className="exp-photo-title">{row.title}</div>
+                <div className="exp-photo-sub">{row.meta}</div>
               </div>
             </div>
           </Reveal>
@@ -353,25 +311,6 @@ function Gallery({ c, lang }) {
   );
 }
 
-// ============================================================
-// TESTIMONIALS
-// ============================================================
-function Testimonials({ c, lang }) {
-  return (
-    <section className="block" data-screen-label="Testimonials">
-      <SectionHead data={c} dataKey="testimonials" lang={lang} />
-      <div className="testimonials">
-        {c.testimonials.items.map((t, i) => (
-          <Reveal key={i} className="testi" delay={i + 1}>
-            <div className="stars">✦ ✦ ✦ ✦ ✦</div>
-            <blockquote>"{t.q}"</blockquote>
-            <cite>{t.who} <span className="country">{t.country}</span></cite>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 // ============================================================
 // FAQ
@@ -433,5 +372,5 @@ function Footer({ c }) {
 
 Object.assign(window, {
   Photo, Reveal, InkReveal, SectionHead,
-  Hero, Marquee, Collection, Experiences, Master, Visit, Gallery, Testimonials, FAQ, Footer
+  Hero, Collection, Experiences, Master, Visit, Gallery, FAQ, Footer
 });

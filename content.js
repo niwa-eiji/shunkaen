@@ -11,7 +11,7 @@ const CONTENT = {
     },
     hero: {
       eyebrow: "Bonsai Garden & Museum — Est. 1993",
-      title: ["Stillness,", "one thousand", "years deep."],
+      title: ["Stillness, one thousand years deep."],
       sub: "Founded by master Kunio Kobayashi, Shunkaen cares for bonsai older than empires — and opens their quiet world to visitors from every country.",
       ctaPrimary: "Reserve an experience",
       ctaSecondary: "Walk the garden"
@@ -160,7 +160,7 @@ const CONTENT = {
     },
     hero: {
       eyebrow: "盆栽園・美術館 — 1993年創設",
-      title: ["静けさの中に、", "千年の時が", "息づく。"],
+      title: ["千年の静けさが、ここにある。"],
       sub: "盆栽師・小林國雄が創設した春花園。樹齢千年を超える盆栽と共に、日本文化の深さを世界の皆さまにお伝えします。",
       ctaPrimary: "体験を予約する",
       ctaSecondary: "庭園を見る"

@@ -116,9 +116,6 @@ function App() {
         </div>
       </div>
 
-      {/* LEAVES (animation intensity permitting) */}
-      <Leaves enabled={tweaks.animation === "full"} />
-
       {/* HERO */}
       <Hero c={c} onBook={scrollToBook} heroVariant={tweaks.hero} />
 
@@ -129,7 +126,6 @@ function App() {
       <Visit c={c} lang={lang} />
       <BookingForm c={c} lang={lang} />
       <Gallery c={c} lang={lang} />
-      <Testimonials c={c} lang={lang} />
       <FAQ c={c} lang={lang} />
       <Footer c={c} />
 
@@ -176,60 +172,5 @@ function App() {
   );
 }
 
-// ============================================================
-// FALLING LEAVES — very subtle
-// ============================================================
-function Leaves({ enabled }) {
-  const ref = useARef(null);
-  useAEffect(() => {
-    if (!enabled || !ref.current) return;
-    const container = ref.current;
-    const count = 8;
-    const leaves = [];
-    for (let i = 0; i < count; i++) {
-      const el = document.createElement("div");
-      el.className = "leaf";
-      el.innerHTML = `<svg viewBox="0 0 20 20"><path d="M10 2 C4 6 4 14 10 18 C16 14 16 6 10 2 Z" fill="rgba(94,112,84,0.22)" stroke="rgba(94,112,84,0.35)" stroke-width="0.4"/></svg>`;
-      container.appendChild(el);
-      leaves.push({
-        el,
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * -window.innerHeight,
-        vy: 0.15 + Math.random() * 0.25,
-        vx: (Math.random() - 0.5) * 0.3,
-        r: Math.random() * 360,
-        vr: (Math.random() - 0.5) * 0.4,
-        sway: Math.random() * Math.PI * 2,
-        swaySpeed: 0.005 + Math.random() * 0.01,
-        size: 10 + Math.random() * 16
-      });
-    }
-    leaves.forEach(l => { l.el.style.width = `${l.size}px`; l.el.style.height = `${l.size}px`; l.el.style.opacity = "0.9"; });
-
-    let raf;
-    const tick = () => {
-      leaves.forEach(l => {
-        l.sway += l.swaySpeed;
-        l.x += l.vx + Math.sin(l.sway) * 0.3;
-        l.y += l.vy;
-        l.r += l.vr;
-        if (l.y > window.innerHeight + 40) {
-          l.y = -40;
-          l.x = Math.random() * window.innerWidth;
-        }
-        l.el.style.transform = `translate3d(${l.x}px, ${l.y}px, 0) rotate(${l.r}deg)`;
-      });
-      raf = requestAnimationFrame(tick);
-    };
-    tick();
-    return () => {
-      cancelAnimationFrame(raf);
-      leaves.forEach(l => l.el.remove());
-    };
-  }, [enabled]);
-
-  if (!enabled) return null;
-  return <div className="leaves" ref={ref} aria-hidden="true" />;
-}
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
