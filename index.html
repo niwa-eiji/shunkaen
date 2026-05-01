@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>春花園 BONSAI 美術館 | Shunkaen</title>
+  <title>春花園 BONSAI 美術館 | Shunkaen — Tokyo Bonsai Museum & Workshop</title>
+  <meta name="description" content="東京・江戸川の盆栽美術館 春花園。1,000鉢を超える名木の鑑賞と、初心者・手ぶらOKの盆栽体験。予約なしで入園可。Bonsai workshop in Tokyo.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -18,6 +19,7 @@
       --ink-faint: #aaaaaa;
       --rule: #d8d4ce;
       --green: #2d4a2d;
+      --green-deep: #1f351f;
     }
 
     html { scroll-behavior: smooth; }
@@ -48,21 +50,70 @@
     }
     .anim-scale.in-view { opacity: 1; transform: scale(1); }
 
+    /* ─── Buttons (shared) ─── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.6rem;
+      padding: 1rem 2.4rem;
+      font-family: 'EB Garamond', serif;
+      font-size: 0.9rem; letter-spacing: 0.22em;
+      text-transform: uppercase; text-decoration: none;
+      border: 1px solid currentColor;
+      transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.3s;
+      cursor: pointer; background: none;
+    }
+    .btn .btn-jp {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.7rem; letter-spacing: 0.3em; opacity: 0.75;
+    }
+    .btn-primary-light {
+      background: white; color: var(--ink); border-color: white;
+    }
+    .btn-primary-light:hover { background: var(--ink); color: white; border-color: var(--ink); }
+    .btn-ghost-light {
+      color: white; border-color: rgba(255,255,255,0.7);
+    }
+    .btn-ghost-light:hover { background: rgba(255,255,255,0.12); border-color: white; }
+    .btn-primary-dark {
+      background: var(--ink); color: white; border-color: var(--ink);
+    }
+    .btn-primary-dark:hover { background: var(--green-deep); border-color: var(--green-deep); }
+    .btn-ghost-dark {
+      color: var(--ink); border-color: var(--ink);
+    }
+    .btn-ghost-dark:hover { background: var(--ink); color: white; }
+
     /* ─── Navigation ─── */
-    nav {
+    nav.main-nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 3rem;
+      padding: 1.1rem 3rem;
+      background: rgba(255,255,255,0);
+      backdrop-filter: blur(0px);
+      border-bottom: 1px solid transparent;
+      transition: padding 0.4s, background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+    }
+    /* While the hero is visible: nav is transparent and its logo is hidden,
+       so the large hero logo carries the brand. */
+    nav.main-nav .nav-logo { opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+    nav.main-nav.compact {
+      padding: 0.65rem 3rem;
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--rule);
-      transition: padding 0.4s;
     }
-    nav.compact { padding: 0.75rem 3rem; }
+    nav.main-nav.compact .nav-logo { opacity: 1; pointer-events: auto; }
+    /* Make nav text white over the hero so links remain readable */
+    nav.main-nav .nav-links a,
+    nav.main-nav .lang-toggle button { color: rgba(255,255,255,0.92); }
+    nav.main-nav.compact .nav-links a,
+    nav.main-nav.compact .lang-toggle button { color: var(--ink); }
+    nav.main-nav.compact .nav-links a:hover,
+    nav.main-nav.compact .lang-toggle button:hover { color: var(--green); }
     .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
     .nav-logo-mark {
       width: 40px; height: 40px;
@@ -79,25 +130,87 @@
     .nav-logo-text span:last-child {
       font-family: 'Noto Serif JP', serif;
       font-size: 0.6rem; letter-spacing: 0.3em; color: var(--ink-faint); margin-top: 2px;
+      white-space: nowrap;
     }
-    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    @media (max-width: 540px) {
+      .nav-logo-text span:last-child { display: none; }
+    }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
     .nav-links a {
       font-family: 'EB Garamond', serif;
-      font-size: 0.875rem; letter-spacing: 0.12em;
+      font-size: 0.85rem; letter-spacing: 0.12em;
       color: var(--ink); text-decoration: none; transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.78rem; letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.2rem;
+      background: var(--ink); color: white !important; text-decoration: none;
+      transition: background 0.25s;
+    }
+    .nav-cta:hover { background: var(--green-deep); }
+
+    /* ─── Language toggle ─── */
+    .lang-toggle {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: 'EB Garamond', serif;
+      font-size: 0.78rem; letter-spacing: 0.18em;
+    }
+    .lang-toggle button {
+      background: none; border: none; cursor: pointer;
+      font: inherit; letter-spacing: inherit;
+      color: inherit; opacity: 0.55;
+      padding: 0.25rem 0.1rem;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .lang-toggle button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+    .lang-toggle .sep { opacity: 0.4; }
+
+    /* i18n: only show the active language */
+    body[data-lang="ja"] [data-lang="en"],
+    body[data-lang="en"] [data-lang="ja"] { display: none; }
+    /* For inline elements that should keep their layout, allow opt-in */
+    [data-lang-inline] { display: inline; }
 
     /* ─── Hero ─── */
-    .hero { position: relative; height: 100vh; min-height: 600px; overflow: hidden; }
+    .hero { position: relative; height: 100vh; min-height: 640px; overflow: hidden; }
     .hero-img {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover; object-position: center 40%;
+      will-change: transform;
+      animation: heroKenBurns 22s ease-in-out infinite alternate;
+    }
+    @keyframes heroKenBurns {
+      0%   { transform: scale(1.0)  translate3d(0, 0, 0); }
+      100% { transform: scale(1.07) translate3d(-1.5%, -1%, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-img { animation: none; }
+    }
+
+    /* ─── Hero initial reveal (one-shot on page load) ─── */
+    .hero-reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: heroReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-reveal-d1 { animation-delay: 0.20s; }
+    .hero-reveal-d2 { animation-delay: 0.55s; }
+    .hero-reveal-d3 { animation-delay: 0.90s; }
+    .hero-reveal-d4 { animation-delay: 1.20s; }
+    @keyframes heroReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-reveal { animation: none; opacity: 1; transform: none; }
     }
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.5) 100%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.6) 100%);
     }
     .hero-logo {
       position: absolute; top: 5rem; left: 3.5rem;
@@ -118,31 +231,42 @@
       font-family: 'Noto Serif JP', serif;
       font-size: 0.65rem; letter-spacing: 0.35em; color: rgba(255,255,255,0.75);
     }
-    .hero-nav {
+    .hero-content {
       position: absolute;
-      top: auto; left: auto;
-      bottom: 3.5rem; right: 3.5rem;
-      background: transparent;
-      backdrop-filter: none;
-      border: none; padding: 0;
-      display: flex; flex-direction: column; gap: 1.25rem; text-align: right;
+      left: 3.5rem; right: 3.5rem; bottom: 5.5rem;
+      display: flex; flex-direction: column; gap: 2rem;
+      max-width: 760px;
     }
-    .hero-nav a {
-      font-family: 'EB Garamond', serif;
-      font-size: 0.9rem; letter-spacing: 0.15em;
-      color: rgba(255,255,255,0.9); text-decoration: none; transition: color 0.2s;
+    .hero-tagline {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+      font-weight: 200; letter-spacing: 0.18em; line-height: 1.6;
+      color: white;
     }
-    .hero-nav a:hover { color: white; }
+    .hero-tagline-en {
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+      letter-spacing: 0.2em; color: rgba(255,255,255,0.75);
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 1.6rem; margin-top: 0.5rem;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.75rem; font-weight: 300; letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.8);
+    }
+    .hero-meta span::before { content: '— '; opacity: 0.5; margin-right: 0.4em; }
     .scroll-cue {
-      position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: 1.8rem; right: 3.5rem;
       display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0.7;
     }
+    @media (max-height: 720px) { .scroll-cue { display: none; } }
     .scroll-cue span {
       font-family: 'EB Garamond', serif;
       font-size: 0.7rem; letter-spacing: 0.25em; color: white; text-transform: uppercase;
     }
     .scroll-cue .scroll-line {
-      width: 1px; height: 48px; background: white;
+      width: 1px; height: 36px; background: white;
       animation: scrollDrop 2s ease-in-out infinite;
     }
     @keyframes scrollDrop {
@@ -152,61 +276,176 @@
       100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
     }
 
-    /* ─── Utilities ─── */
-    .section-label {
-      writing-mode: vertical-rl;
+    /* ─── Section header ─── */
+    .section-head {
+      display: flex; align-items: flex-end; gap: 2rem;
+      padding: 0 5rem 4rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 5rem;
+    }
+    .section-head h2 {
       font-family: 'EB Garamond', serif;
-      font-size: 0.75rem; letter-spacing: 0.25em;
-      color: var(--ink-faint); text-transform: uppercase; white-space: nowrap;
+      font-size: clamp(2.3rem, 4vw, 3.4rem);
+      font-weight: 400; letter-spacing: 0.05em; line-height: 1;
     }
-    .explore-more {
-      display: inline-flex; align-items: center; gap: 0.75rem;
-      font-family: 'EB Garamond', serif;
-      font-size: 0.875rem; letter-spacing: 0.2em; color: var(--ink);
-      text-decoration: none; cursor: pointer; background: none; border: none;
-    }
-    .explore-more .circle {
-      width: 18px; height: 18px;
-      border: 1px solid var(--ink); border-radius: 50%;
-      flex-shrink: 0; transition: background 0.25s;
-    }
-    .explore-more:hover .circle { background: var(--ink); }
-    .rule { width: 40px; height: 1px; background: var(--rule); }
-
-    /* ─── Concept ─── */
-    .section-concept {
-      display: grid; grid-template-columns: 60px 1fr;
-      min-height: 90vh;
-    }
-    .concept-sidebar {
-      background: var(--off-white);
-      display: flex; align-items: center; justify-content: center;
-      padding: 4rem 0; border-right: 1px solid var(--rule);
-    }
-    .concept-body { display: grid; grid-template-columns: 1fr 1fr; }
-    .concept-image { position: relative; overflow: hidden; }
-    .concept-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .concept-text {
-      padding: 7rem 5rem;
-      display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;
-    }
-    .concept-headline {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(2rem, 3vw, 2.75rem);
-      font-weight: 400; line-height: 1.35; letter-spacing: 0.02em;
-    }
-    .concept-headline em { font-style: italic; color: var(--green); }
-    .concept-body-text {
+    .section-head .sub {
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.875rem; font-weight: 300; line-height: 2.4; color: var(--ink-light);
+      font-size: 0.75rem; letter-spacing: 0.3em;
+      color: var(--ink-faint); padding-bottom: 0.4rem;
     }
-    .concept-body-text-en {
+
+    /* ─── Visit / Walk-in ─── */
+    .section-visit { padding: 7rem 0 8rem; background: var(--white); }
+    .visit-lead {
+      padding: 0 5rem 3rem;
+      max-width: 980px;
+    }
+    .visit-lead-headline {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      font-weight: 300; letter-spacing: 0.08em; line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+    .visit-lead-headline em {
+      font-style: normal; color: var(--green); border-bottom: 2px solid var(--green); padding: 0 0.1em 0.05em;
+    }
+    .visit-lead-en {
       font-family: 'EB Garamond', serif;
-      font-size: 1rem; line-height: 2.1; color: var(--ink-light);
+      font-size: 0.95rem; letter-spacing: 0.04em; color: var(--ink-light);
+    }
+    .visit-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; padding: 0 5rem;
+    }
+    .visit-card {
+      border: 1px solid var(--rule);
+      padding: 2.4rem 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      background: var(--off-white);
+    }
+    .visit-card-eyebrow {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.75rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--green);
+    }
+    .visit-card-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.05rem; font-weight: 400; letter-spacing: 0.1em;
+    }
+    .visit-card-body {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.85rem; font-weight: 300; line-height: 2; color: var(--ink-light);
+    }
+    .visit-card-body strong {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500; color: var(--ink); font-size: 1.1rem;
+      letter-spacing: 0.02em;
+    }
+    .visit-card-link {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.8rem; letter-spacing: 0.2em;
+      color: var(--green); text-decoration: none;
+      margin-top: auto; padding-top: 0.5rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .visit-card-link::after { content: '→'; transition: transform 0.25s; }
+    .visit-card-link:hover::after { transform: translateX(4px); }
+    .visit-note {
+      padding: 2.5rem 5rem 0;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.8rem; font-weight: 300; letter-spacing: 0.1em;
+      color: var(--ink-faint); text-align: center;
+    }
+
+    /* ─── Seasons (when to visit) ─── */
+    .section-seasons { padding: 8rem 0 9rem; background: var(--white); }
+    .seasons-lead {
+      max-width: 760px; padding: 0 5rem 3rem;
+    }
+    .seasons-lead-headline {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      font-weight: 300; letter-spacing: 0.08em; line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .seasons-lead-headline em {
+      font-style: normal; color: var(--green);
+      border-bottom: 2px solid var(--green); padding: 0 0.1em 0.05em;
+    }
+    .seasons-lead-en {
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: 0.95rem; letter-spacing: 0.04em; color: var(--ink-light);
+    }
+    .seasons-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: 380px;
+      gap: 1.25rem;
+      padding: 0 5rem;
+    }
+    .season-card {
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 2rem; color: white;
+      cursor: default;
+    }
+    .season-card img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 1s cubic-bezier(0.16,1,0.3,1);
+      z-index: 0;
+    }
+    .season-card:hover img { transform: scale(1.04); }
+    .season-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.05) 100%);
+      z-index: 1;
+    }
+    .season-card > * { position: relative; z-index: 2; }
+    /* Spring & Autumn are the most-visited seasons → given 2x the visual weight.
+       Layout: row1 = [Spring 4 cols | Summer 2 cols], row2 = [Winter 2 cols | Autumn 4 cols] */
+    .season-spring { grid-column: 1 / span 4; grid-row: 1; }
+    .season-summer { grid-column: 5 / span 2; grid-row: 1; }
+    .season-winter { grid-column: 1 / span 2; grid-row: 2; }
+    .season-autumn { grid-column: 3 / span 4; grid-row: 2; }
+    .season-card .season-popular {
+      position: absolute; top: 1.5rem; left: 1.5rem; z-index: 3;
+      font-family: 'EB Garamond', serif;
+      font-size: 0.7rem; letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      background: rgba(255,255,255,0.92);
+      color: var(--green-deep);
+    }
+    .season-card .season-eyebrow {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.75rem; letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 0.4rem;
+    }
+    .season-card .season-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      font-weight: 300; letter-spacing: 0.2em;
+      margin-bottom: 0.5rem;
+    }
+    .season-card .season-headline {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.95rem; font-weight: 300; line-height: 1.9;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.92);
+      max-width: 36ch;
+    }
+    .season-card .season-headline-en {
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: 0.85rem; letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.7);
+      margin-top: 0.5rem;
     }
 
     /* ─── Panoramic Break ─── */
-    .section-panorama { position: relative; height: 70vh; overflow: hidden; }
+    .section-panorama { position: relative; height: 60vh; overflow: hidden; }
     .panorama-img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: center 40%; display: block;
@@ -220,7 +459,7 @@
     }
     .panorama-ja {
       font-family: 'Noto Serif JP', serif;
-      font-size: clamp(1.4rem, 3vw, 2.25rem);
+      font-size: clamp(1.3rem, 2.8vw, 2rem);
       font-weight: 200; letter-spacing: 0.3em; color: white; line-height: 1.8;
     }
     .panorama-en {
@@ -231,73 +470,120 @@
     .panorama-rule { width: 40px; height: 1px; background: rgba(255,255,255,0.35); }
 
     /* ─── Experiences ─── */
-    .section-experiences { background: var(--off-white); padding: 9rem 0 10rem; }
-    .experiences-header {
-      display: flex; align-items: flex-end; gap: 2rem;
-      padding: 0 5rem 5rem;
-      border-bottom: 1px solid var(--rule);
-      margin-bottom: 6rem;
-    }
-    .experiences-header h2 {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
-      font-weight: 400; letter-spacing: 0.05em; line-height: 1;
-    }
-    .experiences-header .sub {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 0.75rem; letter-spacing: 0.3em;
-      color: var(--ink-faint); padding-bottom: 0.4rem;
-    }
+    .section-experiences { background: var(--off-white); padding: 8rem 0 9rem; }
     .exp-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 2rem; padding: 0 5rem;
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem; padding: 0 5rem;
     }
-    .exp-item { cursor: pointer; }
-    .exp-img-wrap { aspect-ratio: 2/3; overflow: hidden; margin-bottom: 1.25rem; }
-    .exp-img-wrap img {
+    .exp-card {
+      background: var(--white);
+      display: grid; grid-template-columns: 280px 1fr;
+      overflow: hidden;
+    }
+    .exp-card-img { overflow: hidden; }
+    .exp-card-img img {
       width: 100%; height: 100%; object-fit: cover; display: block;
       transition: transform 0.8s ease, filter 0.8s ease;
-      filter: grayscale(20%);
+      filter: grayscale(15%);
     }
-    .exp-item:hover .exp-img-wrap img { transform: scale(1.05); filter: grayscale(0%); }
+    .exp-card:hover .exp-card-img img { transform: scale(1.05); filter: grayscale(0%); }
+    .exp-card-body { padding: 2.2rem 2rem; display: flex; flex-direction: column; gap: 1rem; }
     .exp-num {
       font-family: 'EB Garamond', serif;
-      font-size: 0.75rem; letter-spacing: 0.25em; color: var(--ink-faint); margin-bottom: 0.5rem;
+      font-size: 0.75rem; letter-spacing: 0.25em; color: var(--ink-faint);
     }
     .exp-title-ja {
       font-family: 'Noto Serif JP', serif;
-      font-size: 1.1rem; font-weight: 300; letter-spacing: 0.15em; margin-bottom: 0.2rem;
+      font-size: 1.25rem; font-weight: 400; letter-spacing: 0.15em;
     }
     .exp-title-en {
-      font-family: 'EB Garamond', serif;
-      font-size: 0.8rem; letter-spacing: 0.2em;
-      color: var(--ink-faint); text-transform: uppercase; margin-bottom: 1rem;
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: 0.9rem; letter-spacing: 0.15em;
+      color: var(--ink-faint); margin-top: -0.4rem;
     }
-    .exp-desc {
+    .exp-meta {
+      display: flex; flex-wrap: wrap; gap: 1.2rem;
+      padding: 0.6rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.75rem; font-weight: 300; line-height: 2; color: var(--ink-light);
+      font-size: 0.78rem; font-weight: 300; letter-spacing: 0.1em; color: var(--ink-light);
     }
+    .exp-meta strong {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500; color: var(--ink); font-size: 0.95rem;
+      margin-left: 0.3em; letter-spacing: 0.04em;
+    }
+    .exp-steps { display: flex; flex-direction: column; gap: 0.5rem; }
+    .exp-step {
+      display: grid; grid-template-columns: 28px 1fr; gap: 0.6rem;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.8rem; font-weight: 300; line-height: 1.8; color: var(--ink-light);
+    }
+    .exp-step::before {
+      content: counter(step) '.';
+      counter-increment: step;
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: 0.85rem; color: var(--green); padding-top: 0.05rem;
+    }
+    .exp-steps { counter-reset: step; }
+    .exp-badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.2rem; }
+    .exp-badge {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.68rem; font-weight: 400; letter-spacing: 0.12em;
+      padding: 0.3rem 0.7rem;
+      background: var(--off-white); color: var(--green-deep);
+      border: 1px solid var(--rule);
+    }
+
+    /* ─── The Master ─── */
+    .section-master {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 80vh; background: var(--white);
+    }
+    .master-img { overflow: hidden; position: relative; }
+    .master-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .master-text {
+      padding: 7rem 5rem;
+      display: flex; flex-direction: column; justify-content: center; gap: 2rem;
+    }
+    .master-eyebrow {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.8rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--green);
+    }
+    .master-headline {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      font-weight: 400; line-height: 1.3; letter-spacing: 0.02em;
+    }
+    .master-headline-ja {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1rem; font-weight: 300; letter-spacing: 0.3em; color: var(--ink-light);
+    }
+    .master-body {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.875rem; font-weight: 300; line-height: 2.4; color: var(--ink-light);
+    }
+    .master-awards {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.82rem; font-weight: 300; letter-spacing: 0.1em; color: var(--ink-light);
+    }
+    .master-awards strong {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500; color: var(--green); margin-right: 0.6em;
+      letter-spacing: 0.05em;
+    }
+    .master-quote {
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: 1.05rem; line-height: 1.8; color: var(--ink-light);
+      border-left: 2px solid var(--green); padding-left: 1.5rem;
+    }
+    .rule { width: 40px; height: 1px; background: var(--rule); }
 
     /* ─── Gallery ─── */
-    .section-gallery { padding: 9rem 0 10rem; background: var(--white); }
-    .gallery-header {
-      display: flex; align-items: flex-end; gap: 2rem;
-      padding: 0 5rem 5rem;
-      border-bottom: 1px solid var(--rule);
-      margin-bottom: 4rem;
-    }
-    .gallery-header h2 {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
-      font-weight: 400; letter-spacing: 0.05em; line-height: 1;
-    }
-    .gallery-header .sub {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 0.75rem; letter-spacing: 0.3em;
-      color: var(--ink-faint); padding-bottom: 0.4rem;
-    }
-
-    /* Masonry-style editorial grid */
+    .section-gallery { padding: 8rem 0 9rem; background: var(--off-white); }
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -311,104 +597,93 @@
       transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
     }
     .gallery-item:hover img { transform: scale(1.05); }
+    .g1 { grid-column: 1 / 8;  grid-row: 1 / 5; }
+    .g2 { grid-column: 8 / 13; grid-row: 1 / 7; }
+    .g3 { grid-column: 1 / 5;  grid-row: 5 / 9; }
+    .g4 { grid-column: 5 / 8;  grid-row: 5 / 9; }
+    .g5 { grid-column: 1 / 9;  grid-row: 9 / 13; }
+    .g6 { grid-column: 9 / 13; grid-row: 7 / 13; }
 
-    /* Item placements */
-    .g1 { grid-column: 1 / 8;  grid-row: 1 / 5; }   /* large landscape */
-    .g2 { grid-column: 8 / 13; grid-row: 1 / 7; }   /* tall portrait */
-    .g3 { grid-column: 1 / 5;  grid-row: 5 / 9; }   /* portrait */
-    .g4 { grid-column: 5 / 8;  grid-row: 5 / 9; }   /* portrait */
-    .g5 { grid-column: 1 / 9;  grid-row: 9 / 13; }  /* wide landscape */
-    .g6 { grid-column: 9 / 13; grid-row: 7 / 13; }  /* portrait */
-
-    /* ─── Garden & Master ─── */
-    .section-garden {
-      display: grid; grid-template-columns: 1fr 60px;
-      min-height: 85vh;
+    /* ─── FAQ ─── */
+    .section-faq { padding: 8rem 0 9rem; background: var(--white); }
+    .faq-list {
+      max-width: 900px; margin: 0 auto;
+      padding: 0 5rem;
+      display: flex; flex-direction: column; gap: 0;
     }
-    .garden-body { display: grid; grid-template-columns: 1fr 1fr; }
-    .garden-text {
-      padding: 8rem 5rem;
-      display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;
+    .faq-item {
+      border-bottom: 1px solid var(--rule);
     }
-    .garden-eyebrow {
-      font-family: 'EB Garamond', serif;
-      font-size: 0.8rem; letter-spacing: 0.3em;
-      text-transform: uppercase; color: var(--green);
-    }
-    .garden-headline {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(2rem, 3vw, 2.75rem);
-      font-weight: 400; line-height: 1.3; letter-spacing: 0.02em;
-    }
-    .garden-headline-ja {
+    .faq-item:first-child { border-top: 1px solid var(--rule); }
+    .faq-q {
+      width: 100%;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem;
+      padding: 1.6rem 0;
+      background: none; border: none; cursor: pointer; text-align: left;
       font-family: 'Noto Serif JP', serif;
-      font-size: 1rem; font-weight: 300; letter-spacing: 0.3em; color: var(--ink-light);
+      font-size: 1rem; font-weight: 400; letter-spacing: 0.1em; color: var(--ink);
+      transition: color 0.25s;
     }
-    .garden-body-text {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 0.875rem; font-weight: 300; line-height: 2.4; color: var(--ink-light);
-    }
-    .garden-quote {
+    .faq-q:hover { color: var(--green); }
+    .faq-q-mark {
       font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: 1.05rem; line-height: 1.8; color: var(--ink-light);
-      border-left: 2px solid var(--green); padding-left: 1.5rem;
+      font-size: 1.1rem; color: var(--green); flex-shrink: 0;
+      transition: transform 0.3s ease;
     }
-    .garden-images { display: grid; grid-template-rows: 1fr 1fr; height: 100%; }
-    .garden-images .garden-image { overflow: hidden; }
-    .garden-images .garden-image + .garden-image { border-top: 4px solid var(--white); }
-    .garden-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .garden-sidebar {
-      background: var(--off-white);
-      display: flex; align-items: center; justify-content: center;
-      padding: 4rem 0; border-left: 1px solid var(--rule);
+    .faq-item[open] .faq-q-mark { transform: rotate(45deg); }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-a {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.85rem; font-weight: 300; line-height: 2.1; color: var(--ink-light);
+      padding: 0 0 1.6rem; max-width: 760px;
+    }
+    .faq-a-en {
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.5rem;
     }
 
-    /* ─── CTA ─── */
-    .section-cta {
+    /* ─── Reserve (final CTA) ─── */
+    .section-reserve {
       position: relative; overflow: hidden;
-      min-height: 60vh; display: flex; align-items: center;
+      min-height: 70vh; display: flex; align-items: center;
     }
-    .cta-bg { position: absolute; inset: 0; }
-    .cta-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-    .cta-bg::after {
+    .reserve-bg { position: absolute; inset: 0; }
+    .reserve-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+    .reserve-bg::after {
       content: ''; position: absolute; inset: 0;
-      background: rgba(10,15,10,0.68);
+      background: rgba(10,15,10,0.72);
     }
-    .cta-content {
+    .reserve-content {
       position: relative; z-index: 1;
       width: 100%; text-align: center; padding: 6rem 2rem;
       display: flex; flex-direction: column; align-items: center; gap: 2rem;
+      max-width: 820px; margin: 0 auto;
     }
-    .cta-eyebrow {
+    .reserve-eyebrow {
       font-family: 'EB Garamond', serif;
       font-size: 0.8rem; letter-spacing: 0.35em;
       text-transform: uppercase; color: rgba(255,255,255,0.6);
     }
-    .cta-headline {
+    .reserve-headline {
       font-family: 'Noto Serif JP', serif;
-      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem);
       font-weight: 200; letter-spacing: 0.15em; color: white; line-height: 1.6;
     }
-    .cta-sub {
+    .reserve-sub {
       font-family: 'Noto Serif JP', serif;
-      font-size: 0.8rem; font-weight: 300;
-      letter-spacing: 0.2em; color: rgba(255,255,255,0.6); line-height: 2;
+      font-size: 0.85rem; font-weight: 300;
+      letter-spacing: 0.18em; color: rgba(255,255,255,0.75); line-height: 2;
     }
-    .cta-btn {
-      display: inline-block; padding: 1rem 3rem;
-      border: 1px solid rgba(255,255,255,0.7);
+    .reserve-fallback {
       font-family: 'EB Garamond', serif;
-      font-size: 0.875rem; letter-spacing: 0.25em;
-      text-transform: uppercase; color: white;
-      text-decoration: none;
-      transition: background 0.3s, border-color 0.3s;
-      cursor: pointer; background: none;
+      font-size: 0.8rem; letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.55); margin-top: 1rem;
     }
-    .cta-btn:hover { background: rgba(255,255,255,0.12); border-color: white; }
+    .reserve-fallback a { color: rgba(255,255,255,0.85); text-decoration: underline; text-underline-offset: 4px; }
 
     /* ─── Footer ─── */
     footer { background: var(--off-white); border-top: 1px solid var(--rule); }
-    .footer-imgstrip { width: 100%; height: 240px; overflow: hidden; position: relative; }
+    .footer-imgstrip { width: 100%; height: 200px; overflow: hidden; position: relative; }
     .footer-imgstrip img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: center 50%;
@@ -460,40 +735,59 @@
 
     /* ─── Responsive ─── */
     @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
+      nav.main-nav { padding: 0.9rem 1.25rem; }
       .nav-links { display: none; }
-      .hero-logo { left: 1.5rem; top: 4.5rem; }
-      .hero-nav { display: none; }
-      .section-concept { grid-template-columns: 40px 1fr; }
-      .concept-body { grid-template-columns: 1fr; }
-      .concept-image { aspect-ratio: 4/3; }
-      .concept-text { padding: 3.5rem 2rem; }
-      .section-panorama { height: 50vw; min-height: 260px; }
-      .section-experiences { padding: 6rem 0 7rem; }
-      .experiences-header { padding: 0 2rem 3rem; margin-bottom: 3rem; }
-      .exp-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 0 2rem; }
-      .section-gallery { padding: 6rem 0 7rem; }
-      .gallery-header { padding: 0 2rem 3rem; margin-bottom: 2rem; }
+      .nav-cta { padding: 0.5rem 0.9rem; font-size: 0.7rem; letter-spacing: 0.18em; }
+      .hero-logo { left: 1.5rem; top: 4.2rem; }
+      .hero-logo-mark { width: 52px; height: 52px; font-size: 1.25rem; }
+      .hero-logo-name { font-size: 1.25rem; }
+      .hero-content { left: 1.5rem; right: 1.5rem; bottom: 3rem; gap: 1.4rem; }
+      .hero-tagline { font-size: 1.5rem; letter-spacing: 0.12em; line-height: 1.5; }
+      .hero-tagline-en { font-size: 0.8rem; }
+      .hero-ctas { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+      .btn { width: 100%; padding: 0.85rem 1.2rem; font-size: 0.8rem; letter-spacing: 0.18em; }
+      .hero-meta { font-size: 0.7rem; gap: 0.8rem; }
+      .section-head { padding: 0 1.5rem 2.5rem; margin-bottom: 3rem; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+      .visit-lead { padding: 0 1.5rem 2.5rem; }
+      .visit-grid { grid-template-columns: 1fr; gap: 1rem; padding: 0 1.5rem; }
+      .visit-note { padding: 2rem 1.5rem 0; }
+      .nav-right { gap: 1rem; }
+      .lang-toggle { font-size: 0.72rem; letter-spacing: 0.14em; gap: 0.3rem; }
+      .section-seasons { padding: 5rem 0 6rem; }
+      .seasons-lead { padding: 0 1.5rem 2rem; }
+      .seasons-grid {
+        grid-template-columns: 1fr; grid-auto-rows: 280px;
+        gap: 0.75rem; padding: 0 1.5rem;
+      }
+      .season-spring, .season-summer, .season-winter, .season-autumn {
+        grid-column: 1; grid-row: auto;
+      }
+      .section-panorama { height: 50vw; min-height: 240px; }
+      .section-experiences { padding: 5rem 0 6rem; }
+      .exp-grid { grid-template-columns: 1fr; gap: 1.25rem; padding: 0 1.5rem; }
+      .exp-card { grid-template-columns: 1fr; }
+      .exp-card-img { aspect-ratio: 4/3; }
+      .section-master { grid-template-columns: 1fr; min-height: auto; }
+      .master-img { aspect-ratio: 4/3; order: -1; }
+      .master-text { padding: 4rem 1.5rem; }
+      .section-gallery { padding: 5rem 0 6rem; }
       .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: auto;
         gap: 4px; padding: 0;
       }
       .g1,.g2,.g3,.g4,.g5,.g6 { grid-column: auto; grid-row: auto; aspect-ratio: 1; }
-      .section-garden { grid-template-columns: 1fr; }
-      .garden-sidebar { display: none; }
-      .garden-body { grid-template-columns: 1fr; }
-      .garden-text { padding: 4rem 2rem; }
-      .garden-images { height: 100vw; }
+      .section-faq { padding: 5rem 0 6rem; }
+      .faq-list { padding: 0 1.5rem; }
       .footer-imgstrip { height: 160px; }
       .footer-inner { padding: 3rem 1.5rem 2rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
   </style>
 </head>
-<body>
+<body data-lang="ja">
 
-  <nav id="main-nav">
+  <nav class="main-nav" id="main-nav">
     <a href="#" class="nav-logo">
       <div class="nav-logo-mark">華</div>
       <div class="nav-logo-text">
@@ -501,142 +795,510 @@
         <span>春花園 BONSAI 美術館</span>
       </div>
     </a>
-    <ul class="nav-links">
-      <li><a href="#concept">Concept</a></li>
-      <li><a href="#experiences">Experiences</a></li>
-      <li><a href="#gallery">Photos</a></li>
-      <li><a href="#garden">Garden &amp; Master</a></li>
-      <li><a href="#visit">Visit</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#visit"><span data-lang="ja">来園案内</span><span data-lang="en">Visit</span></a></li>
+        <li><a href="#seasons"><span data-lang="ja">四季</span><span data-lang="en">Seasons</span></a></li>
+        <li><a href="#experiences"><span data-lang="ja">体験</span><span data-lang="en">Experiences</span></a></li>
+        <li><a href="#master"><span data-lang="ja">小林國雄</span><span data-lang="en">The Master</span></a></li>
+        <li><a href="#gallery"><span data-lang="ja">ギャラリー</span><span data-lang="en">Gallery</span></a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-set-lang="ja">JP</button>
+        <span class="sep">/</span>
+        <button type="button" data-set-lang="en">EN</button>
+      </div>
+      <a href="#reserve" class="nav-cta">
+        <span data-lang="ja">予約</span><span data-lang="en">Book</span>
+      </a>
+    </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- ───────── 1. Hero — Awareness & immediate action ───────── -->
   <section class="hero">
     <img class="hero-img"
-      src="https://images.unsplash.com/photo-1676182123614-3e1f67fd38f5?auto=format&fit=crop&q=85&w=2000"
+      src="assets/photos/hero.jpg"
       alt="春花園 盆栽庭園"
     />
     <div class="hero-overlay"></div>
-    <div class="hero-logo">
+    <div class="hero-logo hero-reveal hero-reveal-d1">
       <div class="hero-logo-mark">華</div>
       <div class="hero-logo-name">Shunkaen</div>
       <div class="hero-logo-sub">春花園 BONSAI 美術館</div>
     </div>
-    <nav class="hero-nav">
-      <a href="#concept">Concept</a>
-      <a href="#experiences">Experiences</a>
-      <a href="#garden">Garden &amp; Master</a>
-      <a href="#visit">Visit</a>
-    </nav>
+    <div class="hero-content">
+      <p class="hero-tagline hero-reveal hero-reveal-d2" data-lang="ja">
+        千鉢の名木と、<br>
+        世界に一つの体験を。
+      </p>
+      <p class="hero-tagline hero-reveal hero-reveal-d2" data-lang="en">
+        A living museum<br>
+        of bonsai, in Tokyo.
+      </p>
+      <p class="hero-tagline-en hero-reveal hero-reveal-d3" data-lang="ja">
+        A living museum of bonsai — open daily in Tokyo.
+      </p>
+      <p class="hero-tagline-en hero-reveal hero-reveal-d3" data-lang="en">
+        Over 1,000 trees. Hands-on workshops. Walk-ins welcome.
+      </p>
+      <div class="hero-ctas hero-reveal hero-reveal-d4">
+        <a href="#reserve" class="btn btn-primary-light">
+          <span data-lang="ja">体験を予約する</span>
+          <span data-lang="en">Book Experience</span>
+        </a>
+        <a href="#visit" class="btn btn-ghost-light">
+          <span data-lang="ja">来園案内を見る</span>
+          <span data-lang="en">Plan Your Visit</span>
+        </a>
+      </div>
+    </div>
     <div class="scroll-cue">
       <span>Scroll</span>
       <div class="scroll-line"></div>
     </div>
   </section>
 
-  <!-- Concept -->
-  <section class="section-concept" id="concept">
-    <div class="concept-sidebar">
-      <span class="section-label">About Shunkaen</span>
+  <!-- ───────── 2. Visit — Walk-in / immediate action ───────── -->
+  <section class="section-visit" id="visit">
+    <div class="section-head">
+      <h2 class="anim">Visit</h2>
+      <span class="sub anim anim-d1">
+        <span data-lang="ja">来園案内</span>
+        <span data-lang="en">Hours, admission &amp; access</span>
+      </span>
     </div>
-    <div class="concept-body">
-      <div class="concept-image anim-scale">
-        <img
-          src="https://images.unsplash.com/photo-1677129667817-73a6613865c3?auto=format&fit=crop&q=85&w=900"
-          alt="盆栽の根"
-        />
+    <div class="visit-lead">
+      <p class="visit-lead-headline anim" data-lang="ja">
+        <em>予約なし</em>で、ふらっと立ち寄れる美術館です。
+      </p>
+      <p class="visit-lead-headline anim" data-lang="en">
+        <em>No reservation</em> required — drop in any time during opening hours.
+      </p>
+      <p class="visit-lead-en anim anim-d1" data-lang="ja">
+        No reservation required for entry. Open daily except Mondays — drop in any time during opening hours.
+      </p>
+      <p class="visit-lead-en anim anim-d1" data-lang="en">
+        Open daily except Mondays. Workshops are by reservation.
+      </p>
+    </div>
+    <div class="visit-grid">
+      <div class="visit-card anim">
+        <span class="visit-card-eyebrow">Hours</span>
+        <span class="visit-card-title">
+          <span data-lang="ja">営業時間</span>
+          <span data-lang="en">Opening Hours</span>
+        </span>
+        <p class="visit-card-body" data-lang="ja">
+          <strong>10:00 – 17:00</strong><br>
+          月曜定休（祝日の場合は翌平日休）<br>
+          年末年始休業
+        </p>
+        <p class="visit-card-body" data-lang="en">
+          <strong>10:00 – 17:00</strong><br>
+          Closed Mondays (open on holiday Mondays;<br>
+          following weekday closed instead).<br>
+          Closed during the year-end / new-year period.
+        </p>
       </div>
-      <div class="concept-text">
-        <p class="concept-headline anim">
-          Suburban bonsai garden<br>
-          where you will encounter<br>
-          <em>timeless life.</em>
+      <div class="visit-card anim anim-d1">
+        <span class="visit-card-eyebrow">Admission</span>
+        <span class="visit-card-title">
+          <span data-lang="ja">入園料</span>
+          <span data-lang="en">Admission</span>
+        </span>
+        <p class="visit-card-body" data-lang="ja">
+          大人 <strong>¥2,000</strong><br>
+          学生 <strong>¥1,000</strong>　／　小学生以下 無料
         </p>
-        <div class="rule anim anim-d1"></div>
-        <p class="concept-body-text anim anim-d2">
-          春花園は、東京・江戸川区に佇む盆栽の美術館です。<br>
-          1,000鉢を超える名木が四季折々の表情を見せるこの庭は、<br>
-          単に鑑賞するだけでなく、自らの手で命に触れる場所です。
+        <p class="visit-card-body" data-lang="en">
+          Adults <strong>¥2,000</strong><br>
+          Students <strong>¥1,000</strong> ／ Children free
         </p>
-        <p class="concept-body-text-en anim anim-d3">
-          We are located in Niihori, Edogawa-ku, Tokyo.<br>
-          Shunkaen Bonsai Museum holds over 1,000 masterwork trees<br>
-          and offers hands-on cultural experiences in a living garden.
+      </div>
+      <div class="visit-card anim anim-d2">
+        <span class="visit-card-eyebrow">Access</span>
+        <span class="visit-card-title">
+          <span data-lang="ja">アクセス</span>
+          <span data-lang="en">Access</span>
+        </span>
+        <p class="visit-card-body" data-lang="ja">
+          東京都江戸川区新堀1-29-16<br>
+          都営新宿線「瑞江」駅 徒歩約15分
         </p>
-        <a href="#experiences" class="explore-more anim anim-d4">
-          <span class="circle"></span>
-          Explore more
+        <p class="visit-card-body" data-lang="en">
+          1-29-16 Niihori, Edogawa-ku, Tokyo<br>
+          15 min walk from Mizue Station<br>
+          (Toei Shinjuku Line)
+        </p>
+        <a class="visit-card-link"
+           href="https://www.google.com/maps/search/?api=1&query=春花園BONSAI美術館"
+           target="_blank" rel="noopener">
+          <span data-lang="ja">Google Mapsで開く</span>
+          <span data-lang="en">Open in Google Maps</span>
         </a>
       </div>
+    </div>
+    <p class="visit-note anim" data-lang="ja">
+      ※ 体験コース（盆栽・茶道・着物・書道）はご予約が必要です。鑑賞のみのご来園には予約は不要です。
+    </p>
+    <p class="visit-note anim" data-lang="en">
+      Note: workshops (Bonsai / Tea / Kimono / Calligraphy) require reservation. Garden viewing alone does not.
+    </p>
+  </section>
+
+  <!-- ───────── Seasons — When to come ───────── -->
+  <section class="section-seasons" id="seasons">
+    <div class="section-head">
+      <h2 class="anim">Seasons</h2>
+      <span class="sub anim anim-d1">
+        <span data-lang="ja">いつ訪れたら綺麗？</span>
+        <span data-lang="en">Best times to visit</span>
+      </span>
+    </div>
+    <div class="seasons-lead">
+      <p class="seasons-lead-headline anim" data-lang="ja">
+        最も人気は<em>春と秋</em>。庭園は四季ごとに、まったく別の表情を見せます。
+      </p>
+      <p class="seasons-lead-headline anim" data-lang="en">
+        The most beloved seasons are <em>spring and autumn</em> — though the garden wears a different face all year.
+      </p>
+      <p class="seasons-lead-en anim anim-d1" data-lang="ja">
+        Spring and autumn are the most popular — but every season has its own quiet beauty.
+      </p>
+      <p class="seasons-lead-en anim anim-d1" data-lang="en">
+        Each visit offers a garden you have never seen before.
+      </p>
+    </div>
+    <div class="seasons-grid">
+      <article class="season-card season-spring anim">
+        <img src="assets/photos/season-spring.jpg" alt="春の盆栽" />
+        <span class="season-popular">Most Popular</span>
+        <span class="season-eyebrow">Mar – May</span>
+        <h3 class="season-name">
+          <span data-lang="ja">春</span>
+          <span data-lang="en">Spring</span>
+        </h3>
+        <p class="season-headline" data-lang="ja">
+          梅・桜・新緑が次々に芽吹き、庭園が最も華やぐ季節。盆栽の花が咲き、命の息吹を間近に感じられます。
+        </p>
+        <p class="season-headline" data-lang="en">
+          Plum, cherry, and fresh greens unfold one after another. The garden bursts with life — flowering bonsai are at their peak.
+        </p>
+        <p class="season-headline-en" data-lang="ja">
+          Plum &amp; cherry blossoms · fresh new green
+        </p>
+        <p class="season-headline-en" data-lang="en">
+          梅 ・ 桜 ・ 新緑
+        </p>
+      </article>
+
+      <article class="season-card season-summer anim anim-d1">
+        <img src="assets/photos/season-summer.jpg" alt="夏の盆栽" />
+        <span class="season-eyebrow">Jun – Aug</span>
+        <h3 class="season-name">
+          <span data-lang="ja">夏</span>
+          <span data-lang="en">Summer</span>
+        </h3>
+        <p class="season-headline" data-lang="ja">
+          深く湿った苔と力強い緑。陰影の濃い、静かな時間。
+        </p>
+        <p class="season-headline" data-lang="en">
+          Deep moss and bold green. A season of quiet shadows.
+        </p>
+      </article>
+
+      <article class="season-card season-winter anim anim-d2">
+        <img src="assets/photos/season-winter.jpg" alt="冬の盆栽" />
+        <span class="season-eyebrow">Dec – Feb</span>
+        <h3 class="season-name">
+          <span data-lang="ja">冬</span>
+          <span data-lang="en">Winter</span>
+        </h3>
+        <p class="season-headline" data-lang="ja">
+          幹の造形が最も際立つ季節。雪化粧の凛とした姿。
+        </p>
+        <p class="season-headline" data-lang="en">
+          The bare structure of each trunk stands clearest. Stillness, sometimes touched by snow.
+        </p>
+      </article>
+
+      <article class="season-card season-autumn anim anim-d1">
+        <img src="assets/photos/season-autumn.jpg" alt="秋の盆栽" />
+        <span class="season-popular">Most Popular</span>
+        <span class="season-eyebrow">Oct – Nov</span>
+        <h3 class="season-name">
+          <span data-lang="ja">秋</span>
+          <span data-lang="en">Autumn</span>
+        </h3>
+        <p class="season-headline" data-lang="ja">
+          紅葉と実が彩る、もう一つの最高潮。陽射しがやわらぎ、写真に最も美しく残る季節。
+        </p>
+        <p class="season-headline" data-lang="en">
+          Crimson leaves and ripe fruit — the second high season. Softer light, the most photogenic time of year.
+        </p>
+        <p class="season-headline-en" data-lang="ja">
+          Maple foliage · ripe fruit · golden light
+        </p>
+        <p class="season-headline-en" data-lang="en">
+          紅葉 ・ 実りの秋 ・ 黄金の光
+        </p>
+      </article>
     </div>
   </section>
 
   <!-- Panoramic Break -->
   <section class="section-panorama">
     <img class="panorama-img"
-      src="https://images.unsplash.com/photo-1757829316604-cdb3c7980774?auto=format&fit=crop&q=85&w=2000"
+      src="assets/photos/panorama.jpg"
       alt="日本庭園"
     />
     <div class="panorama-overlay"></div>
     <div class="panorama-text">
       <div class="panorama-rule anim"></div>
-      <p class="panorama-ja anim anim-d1">四季折々の表情を見せる、千の命。</p>
-      <p class="panorama-en anim anim-d2">One thousand trees. One thousand stories.</p>
+      <p class="panorama-ja anim anim-d1" data-lang="ja">四季折々の表情を見せる、千の命。</p>
+      <p class="panorama-ja anim anim-d1" data-lang="en">One thousand lives, ever changing with the seasons.</p>
+      <p class="panorama-en anim anim-d2" data-lang="ja">One thousand trees. One thousand stories.</p>
+      <p class="panorama-en anim anim-d2" data-lang="en">千の樹、千の物語。</p>
       <div class="panorama-rule anim anim-d3"></div>
     </div>
   </section>
 
-  <!-- Experiences -->
+  <!-- ───────── 3. Experiences — Demand creation & reassurance ───────── -->
   <section class="section-experiences" id="experiences">
-    <div class="experiences-header">
+    <div class="section-head">
       <h2 class="anim">Experiences</h2>
-      <span class="sub anim anim-d1">庭園で味わう、極上のひととき</span>
+      <span class="sub anim anim-d1">
+        <span data-lang="ja">体験コース — 初心者・手ぶらOK</span>
+        <span data-lang="en">Workshops — beginner friendly, hands-free</span>
+      </span>
     </div>
+
     <div class="exp-grid">
-      <div class="exp-item anim">
-        <div class="exp-img-wrap">
-          <img src="https://images.unsplash.com/photo-1676182123614-3e1f67fd38f5?auto=format&fit=crop&q=85&w=600" alt="盆栽体験" />
+      <!-- 01 Bonsai -->
+      <article class="exp-card anim">
+        <div class="exp-card-img">
+          <img src="assets/photos/exp-bonsai.jpg" alt="盆栽体験" />
         </div>
-        <div class="exp-num">01</div>
-        <div class="exp-title-ja">盆栽体験</div>
-        <div class="exp-title-en">Bonsai</div>
-        <p class="exp-desc">木を選び、土に触れ、剪定する。職人の指導のもと、一連のプロセスを丁寧に体験します。初心者・手ぶら参加歓迎。</p>
-      </div>
-      <div class="exp-item anim anim-d1">
-        <div class="exp-img-wrap">
-          <img src="https://images.unsplash.com/photo-1755184108959-47223012b460?auto=format&fit=crop&q=85&w=600" alt="茶道" />
+        <div class="exp-card-body">
+          <span class="exp-num">01</span>
+          <h3 class="exp-title-ja">
+            <span data-lang="ja">盆栽体験</span>
+            <span data-lang="en">Bonsai Workshop</span>
+          </h3>
+          <span class="exp-title-en">
+            <span data-lang="ja">Bonsai Workshop</span>
+            <span data-lang="en">盆栽体験</span>
+          </span>
+          <div class="exp-meta">
+            <span data-lang="ja">所要 <strong>約90分</strong></span>
+            <span data-lang="en">Duration <strong>~90 min</strong></span>
+            <span data-lang="ja">料金 <strong>¥8,800〜</strong></span>
+            <span data-lang="en">From <strong>¥8,800</strong></span>
+          </div>
+          <ol class="exp-steps">
+            <li class="exp-step" data-lang="ja">職人と一緒に、お好みの樹種・鉢を選びます。</li>
+            <li class="exp-step" data-lang="en">Choose your tree and pot with a master craftsman.</li>
+            <li class="exp-step" data-lang="ja">剪定・植え替え・コケ張りを丁寧に体験。</li>
+            <li class="exp-step" data-lang="en">Prune, replant, and apply moss — guided every step.</li>
+            <li class="exp-step" data-lang="ja">完成した一鉢は、その日のうちにお持ち帰り。</li>
+            <li class="exp-step" data-lang="en">Take your finished bonsai home the same day.</li>
+          </ol>
+          <div class="exp-badges">
+            <span class="exp-badge" data-lang="ja">初心者歓迎</span>
+            <span class="exp-badge" data-lang="en">Beginner Welcome</span>
+            <span class="exp-badge" data-lang="ja">手ぶらOK</span>
+            <span class="exp-badge" data-lang="en">Hands-free</span>
+            <span class="exp-badge" data-lang="ja">英語対応</span>
+            <span class="exp-badge" data-lang="en">English Support</span>
+            <span class="exp-badge" data-lang="ja">お持ち帰り可</span>
+            <span class="exp-badge" data-lang="en">Take Home</span>
+          </div>
         </div>
-        <div class="exp-num">02</div>
-        <div class="exp-title-ja">茶道</div>
-        <div class="exp-title-en">Tea Ceremony</div>
-        <p class="exp-desc">静寂な茶室で、抹茶と季節の和菓子を味わう。盆栽を鑑賞した後の至福のひととき。</p>
-      </div>
-      <div class="exp-item anim anim-d2">
-        <div class="exp-img-wrap">
-          <img src="https://images.unsplash.com/photo-1598497646869-fc60c816ec31?auto=format&fit=crop&q=85&w=600" alt="着物" />
+      </article>
+
+      <!-- 02 Tea -->
+      <article class="exp-card anim anim-d1">
+        <div class="exp-card-img">
+          <img src="assets/photos/exp-tea.jpg" alt="茶道" />
         </div>
-        <div class="exp-num">03</div>
-        <div class="exp-title-ja">着物</div>
-        <div class="exp-title-en">Kimono</div>
-        <p class="exp-desc">伝統的な着物に身を包み、緑豊かな庭園を散策。最高の記念撮影の舞台をご用意します。</p>
-      </div>
-      <div class="exp-item anim anim-d3">
-        <div class="exp-img-wrap">
-          <img src="https://images.unsplash.com/photo-1582793988951-9aed5509eb97?auto=format&fit=crop&q=85&w=600" alt="書道" />
+        <div class="exp-card-body">
+          <span class="exp-num">02</span>
+          <h3 class="exp-title-ja">
+            <span data-lang="ja">茶道</span>
+            <span data-lang="en">Tea Ceremony</span>
+          </h3>
+          <span class="exp-title-en">
+            <span data-lang="ja">Tea Ceremony</span>
+            <span data-lang="en">茶道</span>
+          </span>
+          <div class="exp-meta">
+            <span data-lang="ja">所要 <strong>約45分</strong></span>
+            <span data-lang="en">Duration <strong>~45 min</strong></span>
+            <span data-lang="ja">料金 <strong>¥3,300〜</strong></span>
+            <span data-lang="en">From <strong>¥3,300</strong></span>
+          </div>
+          <ol class="exp-steps">
+            <li class="exp-step" data-lang="ja">茶室の作法・歴史を、英語/日本語でやさしく解説。</li>
+            <li class="exp-step" data-lang="en">Learn the rituals and history of the tea room (EN/JP).</li>
+            <li class="exp-step" data-lang="ja">季節の和菓子をお召し上がりいただきます。</li>
+            <li class="exp-step" data-lang="en">Enjoy a seasonal traditional sweet.</li>
+            <li class="exp-step" data-lang="ja">ご自身でお茶を点てて、味わうひと時を。</li>
+            <li class="exp-step" data-lang="en">Whisk your own matcha and savor the moment.</li>
+          </ol>
+          <div class="exp-badges">
+            <span class="exp-badge" data-lang="ja">初心者歓迎</span>
+            <span class="exp-badge" data-lang="en">Beginner Welcome</span>
+            <span class="exp-badge" data-lang="ja">英語対応</span>
+            <span class="exp-badge" data-lang="en">English Support</span>
+            <span class="exp-badge" data-lang="ja">和菓子付</span>
+            <span class="exp-badge" data-lang="en">Sweet Included</span>
+          </div>
         </div>
-        <div class="exp-num">04</div>
-        <div class="exp-title-ja">書道</div>
-        <div class="exp-title-en">Calligraphy</div>
-        <p class="exp-desc">墨の香りに包まれながら、心を静めて筆を走らせる。精神統一の体験。</p>
-      </div>
+      </article>
+
+      <!-- 03 Kimono -->
+      <article class="exp-card anim anim-d2">
+        <div class="exp-card-img">
+          <img src="assets/photos/exp-kimono.jpg" alt="着物" />
+        </div>
+        <div class="exp-card-body">
+          <span class="exp-num">03</span>
+          <h3 class="exp-title-ja">
+            <span data-lang="ja">着物</span>
+            <span data-lang="en">Kimono Experience</span>
+          </h3>
+          <span class="exp-title-en">
+            <span data-lang="ja">Kimono Experience</span>
+            <span data-lang="en">着物</span>
+          </span>
+          <div class="exp-meta">
+            <span data-lang="ja">所要 <strong>約120分</strong></span>
+            <span data-lang="en">Duration <strong>~120 min</strong></span>
+            <span data-lang="ja">料金 <strong>¥6,600〜</strong></span>
+            <span data-lang="en">From <strong>¥6,600</strong></span>
+          </div>
+          <ol class="exp-steps">
+            <li class="exp-step" data-lang="ja">数十柄からお好みの一着を選びます。</li>
+            <li class="exp-step" data-lang="en">Pick your favorite from dozens of patterns.</li>
+            <li class="exp-step" data-lang="ja">着付け師による本格着付け（小物・髪飾り込み）。</li>
+            <li class="exp-step" data-lang="en">Authentic dressing by a kitsuke specialist (accessories &amp; hair included).</li>
+            <li class="exp-step" data-lang="ja">庭園内で記念撮影。データはその場でお渡し。</li>
+            <li class="exp-step" data-lang="en">Photo session in the garden — data handed over on the spot.</li>
+          </ol>
+          <div class="exp-badges">
+            <span class="exp-badge" data-lang="ja">初心者歓迎</span>
+            <span class="exp-badge" data-lang="en">Beginner Welcome</span>
+            <span class="exp-badge" data-lang="ja">手ぶらOK</span>
+            <span class="exp-badge" data-lang="en">Hands-free</span>
+            <span class="exp-badge" data-lang="ja">英語対応</span>
+            <span class="exp-badge" data-lang="en">English Support</span>
+            <span class="exp-badge" data-lang="ja">撮影データ付</span>
+            <span class="exp-badge" data-lang="en">Photo Data Included</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04 Calligraphy -->
+      <article class="exp-card anim anim-d3">
+        <div class="exp-card-img">
+          <img src="assets/photos/exp-calligraphy.jpg" alt="書道" />
+        </div>
+        <div class="exp-card-body">
+          <span class="exp-num">04</span>
+          <h3 class="exp-title-ja">
+            <span data-lang="ja">書道</span>
+            <span data-lang="en">Calligraphy</span>
+          </h3>
+          <span class="exp-title-en">
+            <span data-lang="ja">Calligraphy</span>
+            <span data-lang="en">書道</span>
+          </span>
+          <div class="exp-meta">
+            <span data-lang="ja">所要 <strong>約60分</strong></span>
+            <span data-lang="en">Duration <strong>~60 min</strong></span>
+            <span data-lang="ja">料金 <strong>¥4,400〜</strong></span>
+            <span data-lang="en">From <strong>¥4,400</strong></span>
+          </div>
+          <ol class="exp-steps">
+            <li class="exp-step" data-lang="ja">筆・墨・硯の扱いと基本の運筆を学びます。</li>
+            <li class="exp-step" data-lang="en">Learn how to handle the brush, ink, and inkstone.</li>
+            <li class="exp-step" data-lang="ja">お好きな漢字を一字、心を込めて書き上げます。</li>
+            <li class="exp-step" data-lang="en">Write a single kanji of your choice, with full intent.</li>
+            <li class="exp-step" data-lang="ja">お軸仕立てにして、その場でお持ち帰り。</li>
+            <li class="exp-step" data-lang="en">Mounted as a hanging scroll — take it home today.</li>
+          </ol>
+          <div class="exp-badges">
+            <span class="exp-badge" data-lang="ja">初心者歓迎</span>
+            <span class="exp-badge" data-lang="en">Beginner Welcome</span>
+            <span class="exp-badge" data-lang="ja">手ぶらOK</span>
+            <span class="exp-badge" data-lang="en">Hands-free</span>
+            <span class="exp-badge" data-lang="ja">英語対応</span>
+            <span class="exp-badge" data-lang="en">English Support</span>
+            <span class="exp-badge" data-lang="ja">作品お持ち帰り</span>
+            <span class="exp-badge" data-lang="en">Take Your Work Home</span>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- Gallery -->
+  <!-- ───────── 4. The Master — Authority & trust ───────── -->
+  <section class="section-master" id="master">
+    <div class="master-img anim-scale">
+      <img src="assets/photos/master.jpg" alt="小林國雄 ポートレート" />
+    </div>
+    <div class="master-text">
+      <span class="master-eyebrow anim">The Master</span>
+      <h2 class="master-headline anim anim-d1" data-lang="ja">
+        小林國雄 —<br>
+        樹に生かされた、半生。
+      </h2>
+      <h2 class="master-headline anim anim-d1" data-lang="en">
+        Kunio Kobayashi —<br>
+        a life shaped by trees.
+      </h2>
+      <p class="master-headline-ja anim anim-d2">
+        <span data-lang="ja">小林國雄について</span>
+        <span data-lang="en">About the founder</span>
+      </p>
+      <div class="rule anim anim-d2"></div>
+      <p class="master-body anim anim-d3" data-lang="ja">
+        春花園を創設した小林國雄は、世界に名を知られる盆栽家。<br>
+        日本国内最高峰の「内閣総理大臣賞」を4度受賞し、<br>
+        ヨーロッパ・北米・アジア各国で講演・実演を重ねてきました。<br>
+        その作品と哲学に触れるため、世界中から愛好家が訪れます。
+      </p>
+      <p class="master-body anim anim-d3" data-lang="en">
+        Kunio Kobayashi, founder of Shunkaen, is a globally renowned bonsai master.<br>
+        He has received Japan's highest honor — the Prime Minister's Award — four times,<br>
+        and has lectured and given demonstrations across Europe, North America, and Asia.<br>
+        Collectors and enthusiasts visit from every corner of the world to meet him and his trees.
+      </p>
+      <div class="master-awards anim anim-d3">
+        <span data-lang="ja"><strong>×4</strong> 内閣総理大臣賞 受賞</span>
+        <span data-lang="en"><strong>×4</strong> Prime Minister's Award</span>
+        <span data-lang="ja"><strong>1,000+</strong> 鉢の名品コレクション</span>
+        <span data-lang="en"><strong>1,000+</strong> Masterwork trees in collection</span>
+        <span data-lang="ja"><strong>30+</strong> 国でのデモンストレーション実績</span>
+        <span data-lang="en"><strong>30+</strong> Countries where he has demonstrated</span>
+      </div>
+      <blockquote class="master-quote anim anim-d4">
+        "Bonsai is an art without end.<br>
+        It teaches us the beauty of life, the inevitability of death,<br>
+        and the harmony of nature."
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ───────── 5. Gallery & Collection ───────── -->
   <section class="section-gallery" id="gallery">
-    <div class="gallery-header">
-      <h2 class="anim">Photos</h2>
-      <span class="sub anim anim-d1">庭園のすがた</span>
+    <div class="section-head">
+      <h2 class="anim">Gallery &amp; Collection</h2>
+      <span class="sub anim anim-d1">
+        <span data-lang="ja">名品と四季のすがた</span>
+        <span data-lang="en">Masterworks &amp; the four seasons</span>
+      </span>
     </div>
     <div class="gallery-grid">
       <div class="gallery-item g1 anim">
@@ -660,95 +1322,170 @@
     </div>
   </section>
 
-  <!-- Garden & Master -->
-  <section class="section-garden" id="garden">
-    <div class="garden-body">
-      <div class="garden-text">
-        <p class="garden-eyebrow anim">Garden &amp; Master</p>
-        <h2 class="garden-headline anim anim-d1">
-          The living art of<br>
-          a thousand trees.
-        </h2>
-        <p class="garden-headline-ja anim anim-d2">庭園と小林國雄</p>
-        <div class="rule anim anim-d2"></div>
-        <p class="garden-body-text anim anim-d3">
-          1,000鉢を超える名品が四季折々の表情を見せる盆栽庭園。<br>
-          その主である小林國雄は、内閣総理大臣賞を4度受賞するなど、<br>
-          世界的に知られる盆栽界の巨匠です。
-        </p>
-        <blockquote class="garden-quote anim anim-d4">
-          "Bonsai is an art without end.<br>
-          It teaches us the beauty of life, the inevitability of death,<br>
-          and the harmony of nature."
-        </blockquote>
-        <a href="#visit" class="explore-more anim anim-d4">
-          <span class="circle"></span>
-          Read the full story
-        </a>
-      </div>
-      <div class="garden-images">
-        <div class="garden-image anim-scale">
-          <img src="https://images.unsplash.com/photo-1526397751294-331021109fbd?auto=format&fit=crop&q=85&w=900&crop=top" alt="盆栽" />
-        </div>
-        <div class="garden-image anim-scale anim-d2">
-          <img src="https://images.unsplash.com/photo-1677129667817-73a6613865c3?auto=format&fit=crop&q=85&w=900" alt="盆栽の根" />
-        </div>
-      </div>
+  <!-- ───────── 6. FAQ — Removing last hesitations ───────── -->
+  <section class="section-faq" id="faq">
+    <div class="section-head">
+      <h2 class="anim">FAQ</h2>
+      <span class="sub anim anim-d1">
+        <span data-lang="ja">よくあるご質問</span>
+        <span data-lang="en">Frequently asked questions</span>
+      </span>
     </div>
-    <div class="garden-sidebar">
-      <span class="section-label">Garden &amp; Master</span>
+    <div class="faq-list">
+      <details class="faq-item anim">
+        <summary class="faq-q">
+          <span><span data-lang="ja">予約はいつまでに必要ですか？</span><span data-lang="en">When do I need to reserve?</span></span>
+          <span class="faq-q-mark">+</span>
+        </summary>
+        <div class="faq-a" data-lang="ja">
+          鑑賞のみのご来園は予約不要です。体験コース（盆栽・茶道・着物・書道）は、希望日の<strong>3日前まで</strong>のご予約をお願いしております。空き状況により当日予約も可能です。
+        </div>
+        <div class="faq-a" data-lang="en">
+          No reservation needed for garden viewing. For workshops, please book at least <strong>3 days in advance</strong>. Same-day bookings are sometimes possible — please ask.
+        </div>
+      </details>
+      <details class="faq-item anim">
+        <summary class="faq-q">
+          <span><span data-lang="ja">作った盆栽は持ち帰れますか？</span><span data-lang="en">Can I take my bonsai home?</span></span>
+          <span class="faq-q-mark">+</span>
+        </summary>
+        <div class="faq-a" data-lang="ja">
+          はい、その日のうちにお持ち帰りいただけます。海外への持ち出しについては検疫の関係でお持ち帰りいただけませんが、当園で記念撮影と長期保管のサービスをご用意しています。
+        </div>
+        <div class="faq-a" data-lang="en">
+          Yes — domestically, you take it home the same day. International export is restricted by plant quarantine, so we offer a photo session &amp; long-term care service in lieu.
+        </div>
+      </details>
+      <details class="faq-item anim">
+        <summary class="faq-q">
+          <span><span data-lang="ja">英語での対応はありますか？</span><span data-lang="en">Is English support available?</span></span>
+          <span class="faq-q-mark">+</span>
+        </summary>
+        <div class="faq-a" data-lang="ja">
+          はい。すべての体験コースで英語でのガイドが可能です。来園者の8割が海外からのお客様で、年間を通じて英語対応の実績があります。
+        </div>
+        <div class="faq-a" data-lang="en">
+          Yes — all workshops are offered in English. 80% of our visitors come from overseas, and our staff guide them year-round.
+        </div>
+      </details>
+      <details class="faq-item anim">
+        <summary class="faq-q">
+          <span><span data-lang="ja">子ども連れでも参加できますか？</span><span data-lang="en">Can I bring children?</span></span>
+          <span class="faq-q-mark">+</span>
+        </summary>
+        <div class="faq-a" data-lang="ja">
+          ぜひお越しください。小学生以下は入園無料です。盆栽体験は7歳以上推奨ですが、ご家族での参加も歓迎します。
+        </div>
+        <div class="faq-a" data-lang="en">
+          Absolutely. Admission is free for children. The bonsai workshop is recommended for ages 7+, but families are always welcome.
+        </div>
+      </details>
+      <details class="faq-item anim">
+        <summary class="faq-q">
+          <span><span data-lang="ja">雨の日でも体験できますか？</span><span data-lang="en">What if it rains?</span></span>
+          <span class="faq-q-mark">+</span>
+        </summary>
+        <div class="faq-a" data-lang="ja">
+          はい、すべての体験は屋内で行います。雨の日には、しっとりと濡れた庭園もまた格別の趣がございます。
+        </div>
+        <div class="faq-a" data-lang="en">
+          Workshops are held indoors and run rain or shine. The garden, glistening with rain, has a quiet beauty all its own.
+        </div>
+      </details>
+      <details class="faq-item anim">
+        <summary class="faq-q">
+          <span><span data-lang="ja">団体・貸切での予約は可能ですか？</span><span data-lang="en">Do you accept group / private bookings?</span></span>
+          <span class="faq-q-mark">+</span>
+        </summary>
+        <div class="faq-a" data-lang="ja">
+          10名様以上の団体、企業研修・インバウンドツアー等の貸切にも対応しております。お問い合わせフォームよりご相談ください。
+        </div>
+        <div class="faq-a" data-lang="en">
+          Group bookings (10+ people), corporate retreats, and private buyouts are all available. Please contact us via the form below.
+        </div>
+      </details>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section-cta">
-    <div class="cta-bg">
-      <img src="https://images.unsplash.com/photo-1741851374411-9528e6d2f33f?auto=format&fit=crop&q=85&w=2000" alt="夜の日本" />
+  <!-- ───────── 7. Reserve — Final action ───────── -->
+  <section class="section-reserve" id="reserve">
+    <div class="reserve-bg">
+      <img src="assets/photos/reserve-bg.jpg" alt="夜の日本庭園" />
     </div>
-    <div class="cta-content">
-      <p class="cta-eyebrow anim">Plan your visit</p>
-      <h2 class="cta-headline anim anim-d1">五感を開く、千夜の緑へ。</h2>
-      <p class="cta-sub anim anim-d2">
-        盆栽、着物、茶道。<br>
-        あなただけの1日パッケージプランをご用意しております。
+    <div class="reserve-content">
+      <p class="reserve-eyebrow anim">Reserve your experience</p>
+      <h2 class="reserve-headline anim anim-d1" data-lang="ja">
+        準備はもう、<br>
+        ここまでで整いました。
+      </h2>
+      <h2 class="reserve-headline anim anim-d1" data-lang="en">
+        Everything you need —<br>
+        right at your fingertips.
+      </h2>
+      <p class="reserve-sub anim anim-d2" data-lang="ja">
+        盆栽、茶道、着物、書道。<br>
+        日時とコースを選び、ご予約フォームへお進みください。
       </p>
-      <a href="#visit" class="cta-btn anim anim-d3">Book Your Experience</a>
+      <p class="reserve-sub anim anim-d2" data-lang="en">
+        Bonsai, Tea, Kimono, Calligraphy.<br>
+        Choose your date and experience — book in about 60 seconds.
+      </p>
+      <a href="#" class="btn btn-primary-light anim anim-d3" style="font-size: 1rem; padding: 1.2rem 3rem;">
+        <span data-lang="ja">予約フォームへ進む</span>
+        <span data-lang="en">Go to Booking</span>
+      </a>
+      <p class="reserve-fallback anim anim-d4" data-lang="ja">
+        お電話・メールでのご予約も承ります — <a href="tel:+81-3-3670-8622">03-3670-8622</a> ／ <a href="mailto:info@kunio-kobayashi.com">info@kunio-kobayashi.com</a>
+      </p>
+      <p class="reserve-fallback anim anim-d4" data-lang="en">
+        Or contact us by phone or email — <a href="tel:+81-3-3670-8622">+81-3-3670-8622</a> ／ <a href="mailto:info@kunio-kobayashi.com">info@kunio-kobayashi.com</a>
+      </p>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer id="visit">
+  <footer>
     <div class="footer-imgstrip">
-      <img src="https://images.unsplash.com/photo-1757829316604-cdb3c7980774?auto=format&fit=crop&q=85&w=2000" alt="日本庭園" />
+      <img src="assets/photos/footer.jpg" alt="日本庭園" />
     </div>
     <div class="footer-inner">
       <div class="footer-grid">
         <div class="anim">
           <div class="footer-brand-name">Shunkaen</div>
           <div class="footer-brand-sub">春花園 BONSAI 美術館</div>
-          <p class="footer-desc">
-            A living garden where you can experience<br>
-            the true essence of Japanese traditional culture.<br>
-            日本の伝統文化と命の尊厳を体感する庭。
+          <p class="footer-desc" data-lang="ja">
+            日本の伝統文化と命の尊厳を体感する庭。<br>
+            千の名木が四季折々の表情を見せる、生きた美術館です。
+          </p>
+          <p class="footer-desc" data-lang="en">
+            A living garden where visitors can experience<br>
+            the true essence of Japanese culture — and the dignity of life carried in a thousand trees.
           </p>
         </div>
         <div class="footer-col anim anim-d1">
           <h4>Visit Us</h4>
-          <address>
+          <address data-lang="ja">
             〒132-0001<br>
             東京都江戸川区新堀1-29-16<br><br>
+            営業: 10:00 – 17:00<br>
+            定休: 月曜（祝日除く）
+          </address>
+          <address data-lang="en">
+            1-29-16 Niihori,<br>
+            Edogawa-ku, Tokyo 132-0001<br><br>
             Open: 10:00 – 17:00<br>
             Closed: Monday<br>
-            (Except National Holidays)
+            (except national holidays)
           </address>
         </div>
         <div class="footer-col anim anim-d2">
           <h4>Connect</h4>
           <ul class="footer-links">
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Book an Experience</a></li>
+            <li><a href="#reserve"><span data-lang="ja">体験を予約する</span><span data-lang="en">Book Experience</span></a></li>
+            <li><a href="#visit"><span data-lang="ja">来園案内</span><span data-lang="en">Plan Your Visit</span></a></li>
+            <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="#" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="mailto:info@kunio-kobayashi.com"><span data-lang="ja">お問い合わせ</span><span data-lang="en">Contact Us</span></a></li>
           </ul>
         </div>
       </div>
@@ -762,6 +1499,28 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('compact', window.scrollY > 80);
     });
+
+    /* Language toggle (extensible: add more buttons with data-set-lang="xx") */
+    (function() {
+      const SUPPORTED = ['ja', 'en'];
+      const STORAGE_KEY = 'shunkaen.lang';
+      function setLang(lang) {
+        if (!SUPPORTED.includes(lang)) lang = 'ja';
+        document.body.setAttribute('data-lang', lang);
+        document.documentElement.setAttribute('lang', lang);
+        try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+        document.querySelectorAll('.lang-toggle button').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.setLang === lang);
+        });
+      }
+      const stored = (() => { try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; } })();
+      const browser = (navigator.language || 'ja').toLowerCase().split('-')[0];
+      const initial = stored || (SUPPORTED.includes(browser) ? browser : 'ja');
+      setLang(initial);
+      document.querySelectorAll('.lang-toggle button').forEach(btn => {
+        btn.addEventListener('click', () => setLang(btn.dataset.setLang));
+      });
+    })();
 
     /* Scroll-in animations */
     const observer = new IntersectionObserver(
