@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers static-assets configuration for the Shunkaen site.
+  // No Worker script — we just serve the files in the repo root.
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "shunkaen",
+  "compatibility_date": "2025-04-01",
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "single-page-application"
+  }
+}
